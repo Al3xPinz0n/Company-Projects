@@ -1,0 +1,485 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Portal · Overview</title>
+<style>
+  :root {
+    --orange:#FF6441; --dark-gray:#3C3C46; --medium-gray:#5A6E7D; --neutral-gray:#AAB4C3;
+    --light-gray:#E6EBF2; --aqua:#0A6E82; --maersk-blue:#42B0D5; --soft-yellow:#F0BE78;
+    --white:#FFFFFF; --hero-dark:#22262E; --hero-darker:#191C22;
+  }
+  * { margin:0; padding:0; box-sizing:border-box; }
+  body { font-family:'Inter','Segoe UI',system-ui,sans-serif; background:var(--white);
+         color:var(--dark-gray); height:100vh; height:100dvh; overflow:hidden;
+         display:flex; flex-direction:column; }
+  a { text-decoration:none; color:inherit; }
+  body > header, body > nav, body > footer { flex:0 0 auto; }
+  body > .hero { flex:1 1 auto; min-height:0; }
+
+  /* ── HEADER ── */
+  body > header { background:var(--dark-gray); padding:0 2.5rem; height:64px; display:flex;
+                  align-items:center; justify-content:space-between;
+                  border-bottom:3px solid var(--orange); }
+  .header-left { display:flex; align-items:center; gap:1.5rem; }
+  .brand-mark { display:flex; align-items:center; gap:.6rem; }
+  .brand-glyph { width:38px; height:38px; display:block; filter:drop-shadow(0 3px 6px rgba(0,0,0,.28)); }
+  .brand-glyph img { display:block; width:100%; height:100%; object-fit:contain; }
+  .bridge-brand { display:flex; flex-direction:column; }
+  .bridge-name { font-size:1.05rem; font-weight:800; color:var(--white); letter-spacing:.06em; }
+  .bridge-name .brand-ai { color:var(--orange); }
+  .bridge-sub { font-size:.6rem; color:var(--neutral-gray); letter-spacing:.04em; }
+  .header-right { display:flex; align-items:center; gap:1.5rem; }
+  .live-badge { display:flex; align-items:center; gap:.4rem; background:rgba(255,100,65,.15);
+                border:1px solid var(--orange); border-radius:20px; padding:.25rem .75rem;
+                font-size:.68rem; font-weight:600; color:var(--orange); letter-spacing:.05em; }
+  .live-dot { width:7px; height:7px; background:var(--orange); border-radius:50%; animation:pulse 2s infinite; }
+  @keyframes pulse { 0%,100%{opacity:1;transform:scale(1);} 50%{opacity:.4;transform:scale(1.4);} }
+  .user-box { display:flex; align-items:center; gap:.6rem; }
+  .user-name { font-size:.78rem; color:var(--light-gray); font-weight:600; }
+  .logout-btn { background:rgba(255,255,255,.06); border:1px solid rgba(255,255,255,.15);
+                color:var(--neutral-gray); font-size:.72rem; font-weight:600; padding:.3rem .7rem;
+                border-radius:6px; cursor:pointer; transition:all .2s; font-family:inherit; }
+  .logout-btn:hover { background:var(--orange); border-color:var(--orange); color:#fff; }
+
+  /* ── NAV ── */
+  body > nav { background:var(--white); border-bottom:1px solid var(--light-gray);
+               padding:0 2.5rem; display:flex; overflow-x:auto; }
+  .nav-item { padding:.9rem 1.4rem; font-size:.82rem; font-weight:500; color:var(--medium-gray);
+              cursor:pointer; border-bottom:3px solid transparent; transition:all .25s; white-space:nowrap; }
+  .nav-item:hover { color:var(--dark-gray); }
+  .nav-item.active { color:var(--orange); border-bottom-color:var(--orange); font-weight:600; }
+
+  /* ── FOOTER ── */
+  footer { background:var(--hero-darker); color:var(--neutral-gray); padding:.7rem 2.5rem;
+           display:flex; flex-wrap:wrap; gap:1rem; justify-content:space-between; font-size:.7rem; }
+  .footer-brand { color:var(--white); font-weight:700; }
+  .footer-brand .brand-ai { color:var(--orange); }
+
+  /* ── HERO ── */
+  .hero { background:var(--hero-dark); position:relative; overflow:hidden;
+          display:flex; flex-direction:column; }
+  .hero-glow-left { position:absolute; left:-200px; top:50%; transform:translateY(-50%);
+                    width:700px; height:700px; pointer-events:none; z-index:1;
+                    background:radial-gradient(circle,rgba(255,100,65,.07) 0%,transparent 65%); }
+  .hero-glow-right { position:absolute; right:-100px; top:30%; width:500px; height:500px;
+                     pointer-events:none; z-index:1;
+                     background:radial-gradient(circle,rgba(66,176,213,.06) 0%,transparent 65%); }
+  .hero-grid { position:absolute; inset:0; z-index:1; pointer-events:none;
+               background-image:linear-gradient(rgba(255,255,255,.018) 1px,transparent 1px),
+                                linear-gradient(90deg,rgba(255,255,255,.018) 1px,transparent 1px);
+               background-size:60px 60px;
+               -webkit-mask-image:radial-gradient(ellipse 80% 80% at 50% 50%,black 0%,transparent 100%);
+               mask-image:radial-gradient(ellipse 80% 80% at 50% 50%,black 0%,transparent 100%); }
+  .hero-content { position:relative; z-index:2; max-width:1400px; margin:0 auto; width:100%;
+                  padding:1.5rem 2.5rem; display:grid;
+                  grid-template-columns:minmax(0,1fr) minmax(500px,580px); gap:2rem;
+                  align-items:center; flex:1 1 auto; min-height:0; }
+  .hero-eyebrow { display:inline-flex; align-items:center; gap:.5rem; font-size:.65rem;
+                  font-weight:600; letter-spacing:.2em; text-transform:uppercase;
+                  color:var(--orange); margin-bottom:1.5rem; }
+  .hero-eyebrow::before { content:''; width:24px; height:1px; background:var(--orange); }
+  .hero-logo { display:flex; align-items:center; gap:1.1rem; margin-bottom:1.1rem; }
+  .hero-brand-icon { width:78px; height:78px; flex-shrink:0; filter:drop-shadow(0 8px 18px rgba(0,0,0,.34)); }
+  .hero-brand-icon img { display:block; width:100%; height:100%; object-fit:contain; }
+  .hero-logo-word { font-size:2.9rem; font-weight:800; letter-spacing:-.02em; color:var(--white); line-height:1; }
+  .hero-logo-word .brand-ai { color:var(--orange); }
+  .hero-title { font-size:3.2rem; font-weight:800; color:var(--white); line-height:1.08;
+                letter-spacing:-.025em; margin-bottom:1.25rem; }
+  .hero-title strong { font-weight:800; color:var(--orange); }
+  .hero-sub { font-size:1rem; font-weight:300; line-height:1.75; color:rgba(255,255,255,.5);
+              max-width:520px; margin-bottom:2.5rem; }
+  .hero-sub .accent { display:inline-block; margin-top:.6rem; font-size:.8rem; font-weight:600;
+                      color:var(--orange); letter-spacing:.05em; }
+  .hero-stats { display:flex; }
+  .hero-stat { display:flex; flex-direction:column; padding:1rem 2rem 1rem 0; margin-right:2rem;
+               border-right:1px solid rgba(255,255,255,.1); }
+  .hero-stat:last-child { border-right:none; margin-right:0; }
+  .hero-stat-val { font-size:2rem; font-weight:700; color:var(--white); line-height:1; letter-spacing:-.02em; }
+  .hero-stat-val .accent { color:var(--orange); }
+  .hero-stat-label { font-size:.62rem; color:rgba(255,255,255,.38); margin-top:.35rem;
+                     font-weight:500; letter-spacing:.1em; text-transform:uppercase; }
+
+  /* Panel lateral del hero */
+  .vessel-module { height:520px; max-height:100%; background:rgba(255,255,255,.04);
+                   border:1px solid rgba(255,255,255,.1); border-radius:16px; overflow:hidden;
+                   backdrop-filter:blur(12px); display:flex; flex-direction:column; }
+  .vessel-module-header { padding:1rem 1.4rem; border-bottom:1px solid rgba(255,255,255,.08);
+                          display:flex; align-items:center; justify-content:space-between; flex:0 0 auto; }
+  .vessel-module-title { font-size:.62rem; font-weight:700; letter-spacing:.14em;
+                         text-transform:uppercase; color:rgba(255,255,255,.4); }
+  .vessel-module-live { display:flex; align-items:center; gap:.35rem; font-size:.6rem; font-weight:700;
+                        letter-spacing:.1em; text-transform:uppercase; color:var(--orange); }
+  .vessel-module-live-dot { width:5px; height:5px; border-radius:50%; background:var(--orange);
+                            animation:pulse 2s infinite; }
+  .vessel-list { flex:1 1 auto; overflow-y:auto; min-height:0; }
+  .vessel-row { display:flex; align-items:center; justify-content:space-between; padding:.85rem 1.4rem;
+                border-bottom:1px solid rgba(255,255,255,.05); gap:1rem; }
+  .vessel-row:last-child { border-bottom:none; }
+  .vessel-row:hover { background:rgba(255,255,255,.03); }
+  .vessel-row-left { display:flex; flex-direction:column; gap:.2rem; min-width:0; }
+  .vessel-name { font-size:.8rem; color:var(--white); font-weight:600; white-space:nowrap;
+                 overflow:hidden; text-overflow:ellipsis; max-width:170px; }
+  .vessel-berth { font-size:.62rem; color:rgba(255,255,255,.3); }
+  .vessel-row-right { display:flex; flex-direction:column; align-items:flex-end; gap:.25rem; flex-shrink:0; }
+  .vessel-progress-track { width:90px; height:3px; background:rgba(255,255,255,.08);
+                           border-radius:2px; overflow:hidden; }
+  .vessel-progress-fill { height:100%; border-radius:2px;
+                          background:linear-gradient(90deg,var(--aqua),var(--maersk-blue)); }
+  .vessel-pending { font-size:.6rem; color:var(--orange); font-weight:700; font-variant-numeric:tabular-nums; }
+  .vessel-module-foot { flex:0 0 auto; text-align:center; padding:.6rem;
+                        background:rgba(34,38,46,.85); color:var(--orange);
+                        font-size:.72rem; font-weight:600; border-top:1px solid rgba(255,255,255,.08); }
+
+  /* ── BARRA DE KPIs ── */
+  .hero-kpi-bar { position:relative; z-index:2; flex:0 0 auto; border-top:1px solid rgba(255,255,255,.06);
+                  background:rgba(0,0,0,.2); display:flex; flex-wrap:wrap; }
+  .hero-kpi-item { flex:1; min-width:180px; padding:1.1rem 2rem;
+                   border-right:1px solid rgba(255,255,255,.06);
+                   display:flex; flex-direction:column; gap:.15rem; }
+  .hero-kpi-item:last-child { border-right:none; }
+  .hero-kpi-label { font-size:.58rem; font-weight:600; letter-spacing:.12em;
+                    text-transform:uppercase; color:rgba(255,255,255,.3); }
+  .hero-kpi-val { font-size:1.3rem; font-weight:700; color:var(--white); line-height:1;
+                  font-variant-numeric:tabular-nums; }
+  .hero-kpi-val .unit { font-size:.72rem; font-weight:400; color:rgba(255,255,255,.35); margin-left:2px; }
+  .hero-kpi-trend { font-size:.62rem; font-weight:500; margin-top:.1rem; }
+  .trend-up { color:#4ade80; } .trend-neutral { color:rgba(255,255,255,.3); }
+
+  /* ── PANELES DE MÓDULOS ── */
+  .section-panel { display:none; position:fixed; inset:0; z-index:150; background:rgba(10,15,20,.92);
+                   backdrop-filter:blur(8px); flex-direction:column; align-items:center;
+                   justify-content:center; padding:2rem; animation:fadeInPanel .25s ease; }
+  .section-panel.open { display:flex; }
+  @keyframes fadeInPanel { from{opacity:0;transform:translateY(16px);} to{opacity:1;transform:translateY(0);} }
+  .panel-header { display:flex; align-items:center; justify-content:space-between; width:100%;
+                  max-width:900px; margin-bottom:2rem; }
+  .panel-title { font-size:1.6rem; font-weight:300; color:#fff; letter-spacing:.02em; }
+  .panel-title strong { color:var(--orange); font-weight:700; }
+  .panel-close { background:rgba(255,255,255,.08); border:1px solid rgba(255,255,255,.15);
+                 color:rgba(255,255,255,.7); font-size:.8rem; font-weight:600; padding:.4rem 1rem;
+                 border-radius:6px; cursor:pointer; transition:all .2s; font-family:inherit; }
+  .panel-close:hover { background:var(--orange); border-color:var(--orange); color:#fff; }
+  .panel-cards { display:flex; gap:1.5rem; flex-wrap:wrap; justify-content:center;
+                 max-width:900px; width:100%; max-height:70vh; overflow-y:auto; }
+  .panel-card { background:rgba(255,255,255,.04); border:1px solid rgba(255,255,255,.1);
+                border-radius:14px; padding:1.8rem; width:260px; cursor:pointer; transition:all .2s;
+                display:flex; flex-direction:column; gap:.8rem; position:relative; overflow:hidden; }
+  .panel-card::before { content:''; position:absolute; top:0; left:0; right:0; height:3px;
+                        background:var(--orange); transform:scaleX(0); transition:transform .2s;
+                        transform-origin:left; }
+  .panel-card:hover { border-color:var(--orange); transform:translateY(-3px);
+                      box-shadow:0 8px 32px rgba(255,100,65,.15); }
+  .panel-card:hover::before { transform:scaleX(1); }
+  .panel-card.soon { cursor:default; opacity:.75; }
+  .panel-card.soon:hover { transform:none; border-color:rgba(255,255,255,.1); box-shadow:none; }
+  .panel-card.soon:hover::before { transform:scaleX(0); }
+  .panel-card-icon { width:52px; height:52px; background:rgba(255,100,65,.1); border-radius:12px;
+                     display:flex; align-items:center; justify-content:center; font-size:1.4rem; }
+  .panel-card-badge { position:absolute; top:1rem; right:1rem; font-size:.62rem; font-weight:700;
+                      padding:3px 8px; border-radius:8px; background:#dcfce7; color:#16a34a;
+                      letter-spacing:.04em; text-transform:uppercase; }
+  .panel-card-badge.soon { background:rgba(255,255,255,.1); color:var(--neutral-gray); }
+  .panel-card-badge.maintenance { background:rgba(240,190,120,.16); color:#F0BE78;
+                                  display:inline-flex; align-items:center; gap:4px;
+                                  text-transform:none; letter-spacing:0; font-size:.6rem; }
+  .panel-card-badge.maintenance svg { width:11px; height:11px; flex:none; }
+  .panel-card.maintenance { border-color:rgba(240,190,120,.28); }
+  .panel-card.maintenance::before { background:#F0BE78 !important; }
+  .panel-card.maintenance:hover { border-color:rgba(240,190,120,.55); }
+  .panel-card-title { font-size:1rem; font-weight:700; color:#fff; line-height:1.3; }
+  .panel-card-desc { font-size:.8rem; color:rgba(255,255,255,.5); line-height:1.5; }
+  .panel-card-footer { font-size:.72rem; color:rgba(255,100,65,.8); margin-top:auto; padding-top:.5rem;
+                       border-top:1px solid rgba(255,255,255,.06); display:flex; justify-content:space-between; }
+  .panel-empty { color:rgba(255,255,255,.4); font-size:.85rem; }
+  body.panel-open { overflow:hidden; }
+
+  @media (max-width:1000px){ .hero-content{ grid-template-columns:minmax(0,1fr) 440px; gap:1.75rem; }
+                             .vessel-module{ height:480px; } }
+  @media (max-width:900px){  .hero-content{ grid-template-columns:1fr; }
+                             .vessel-module{ min-width:0; height:440px; }
+                             body{ overflow:auto; height:auto; } }
+  @media (max-width:720px){  body > header{padding:0 1rem;} body > nav{padding:0 1rem;} }
+</style>
+</head>
+<body>
+
+<header>
+  <div class="header-left">
+    <a href="#" class="brand-mark">
+      <div class="brand-glyph" aria-hidden="true"><img src="brainport-mark.svg" alt=""></div>
+      <div class="bridge-brand">
+        <span class="bridge-name">Br<span class="brand-ai">ai</span>nPort</span>
+        <span class="bridge-sub">AI-Powered Strategic Intelligence · APM Terminals</span>
+      </div>
+    </a>
+  </div>
+  <div class="header-right">
+    <div class="live-badge" title="Demo estática — los datos son fijos">
+      <div class="live-dot"></div> DEMO
+    </div>
+    <div class="user-box">
+      <span class="user-name">Usuario Demo</span>
+      <button type="button" class="logout-btn">Cerrar sesión</button>
+    </div>
+  </div>
+</header>
+
+<nav id="nav"></nav>
+
+<div class="hero">
+  <div class="hero-grid"></div>
+  <div class="hero-glow-left"></div>
+  <div class="hero-glow-right"></div>
+
+  <div class="hero-content">
+    <div>
+      <div class="hero-eyebrow" id="hero-eyebrow"></div>
+      <div class="hero-logo">
+        <div class="hero-brand-icon" role="img" aria-label="BrainPort"><img src="brainport-mark.svg" alt=""></div>
+        <span class="hero-logo-word">Br<span class="brand-ai">ai</span>nPort</span>
+      </div>
+      <div class="hero-title"><strong id="hero-title"></strong></div>
+      <div class="hero-sub" id="hero-sub"></div>
+      <div class="hero-stats" id="hero-stats"></div>
+    </div>
+
+    <div class="vessel-module">
+      <div class="vessel-module-header">
+        <span class="vessel-module-title" id="vessel-title"></span>
+        <span class="vessel-module-live"><span class="vessel-module-live-dot"></span> Live</span>
+      </div>
+      <div class="vessel-list" id="vessel-list"></div>
+      <div class="vessel-module-foot">Ver todos →</div>
+    </div>
+  </div>
+
+  <div class="hero-kpi-bar" id="kpi-bar"></div>
+</div>
+
+<footer>
+  <span><span class="footer-brand">Br<span class="brand-ai">ai</span>nPort</span> · AI-Powered Strategic Intelligence · One Platform. One Region. Smarter Decisions.</span>
+  <span>APM Terminals · Classification: Internal · v0.1 · demo estática</span>
+  <span>Lifting Global Trade</span>
+</footer>
+
+<div id="paneles"></div>
+
+<script>
+const SECCIONES = [
+  { key:'overview',         label:'Overview',             title:null, panel:false, active:true },
+  { key:'ai-agents',        label:'AI Agents',            title:'AI <strong>Agents</strong>' },
+  { key:'decision-engines', label:'Decision Engines',     title:'Decision <strong>Engines</strong>' },
+  { key:'indicators',       label:'Indicators',           title:'Indicators' },
+  { key:'yard',             label:'Yard Intelligence',    title:'Yard <strong>Intelligence</strong>' },
+  { key:'vessel',           label:'Vessel Intelligence',  title:'Vessel <strong>Intelligence</strong>' },
+  { key:'projections',      label:'Projections',          title:'<strong>Projections</strong>' },
+  { key:'commercial',       label:'Commercial & Finance', title:'Commercial <strong>&amp; Finance</strong>' },
+  { key:'reporting',        label:'Reporting Tools',      title:'Reporting <strong>Tools</strong>' },
+];
+
+const MODULOS = [
+  { section:'vessel', order:10, status:'live', icon:'🚢',
+    name:'Vessels at Berth', tag:'Vessel · Ops', href:'#',
+    description:'Buques en operación en vivo — muelle, moves pendientes/completados y CMPH.' },
+
+  { section:'vessel', order:40, status:'live', icon:'📊',
+    name:'Planning Quality Calculator', tag:'Planning · XPS', href:'#',
+    description:'KPIs de calidad de planificación — rehandles, clashes, dual cycle, twins.' },
+
+  { section:'vessel', order:45, status:'live', icon:'↔',
+    name:'Dual Cycle', tag:'Vessel intelligence', href:'#',
+    description:'Ciclos de tractor ejecutados: llegada y salida cargadas bajo la misma grúa y bahía.' },
+
+  { section:'vessel', order:80, status:'live', icon:'🗺️',
+    name:'BAPLIE Bay Viewer', tag:'Vessel · Stowage', href:'#',
+    description:'Visualización de bay plans desde archivos BAPLIE EDI.' },
+
+  { section:'yard', order:50, status:'maintenance', icon:'🗺️',
+    name:'Tactical Operations Map', tag:'Yard · Live operations', href:'#',
+    description:'Estado espacial del patio: buques en muelle, flujos activos, zonas compartidas y foco operativo.' },
+
+  { section:'yard', order:55, status:'live', icon:'🏆',
+    name:'Operator Performance', tag:'Yard · Operator ranking', href:'#',
+    description:'Ranking de operadores de patio (RTG/RST/FLT) — bruto y neto, contra el target del negocio.' },
+
+  { section:'projections', order:5, status:'live', icon:'🎯',
+    name:'Projectivity', tag:'CMPH · Planificación semanal', href:'#',
+    description:'El CMPH que cada buque necesita para que la semana cierre en la meta.' },
+
+  { section:'projections', order:10, status:'maintenance', icon:'📊',
+    name:'Timeline & Impacto', tag:'Muelle · Operativa y Comercial', href:'#',
+    description:'Ocupación del muelle a escala física real con mapa de impacto en patio.' },
+
+  { section:'projections', order:20, status:'maintenance', icon:'🏗️',
+    name:'Crane Gangs Projection', tag:'Grúas · Dotación', href:'#',
+    description:'Qué grúa trabaja en qué buque, cuándo termina cada una, choques físicos y dotación por turno.' },
+
+  { section:'indicators', order:90, status:'live', icon:'🛰️',
+    name:'Cargo Integrity Radar', tag:'Indicators · Data Quality', href:'#',
+    description:'Calidad de la info de clientes desde el historial real de cambios — POD, servicio, visita y línea.' },
+
+  { section:'commercial', order:100, status:'live', icon:'📈',
+    name:'Maersk Performance Scorecard', tag:'Commercial · Contractual', href:'#',
+    description:'Scorecard contractual — PMPH y Waiting Time con exclusiones, score ponderado y rebate.' },
+
+  { section:'ai-agents', order:20, status:'live', icon:'🤖', external:true,
+    name:'Vessel AI Agent', tag:'AI · Vessel Ops', href:'#',
+    description:'Diagnóstico ejecutivo por IA de un buque en operación.' },
+
+  { section:'decision-engines', order:30, status:'live', icon:'🏗️', external:true,
+    name:'Work Instructions Simulator', tag:'Yard & Crane Ops', href:'#',
+    description:'Grúas activas con detección de clash en yarda y CMPH por grúa.' },
+
+  { section:'reporting', order:60, status:'live', icon:'📋', external:true,
+    name:'Reporte Ejecutivo de Turno', tag:'Reporting · Turnos', href:'#',
+    description:'Indicadores operacionales por turno — productividad y resumen ejecutivo.' },
+
+  { section:'reporting', order:63, status:'live', icon:'⚖️',
+    name:'Cuadre de Carga', tag:'Reporting · Cuadre', href:'#',
+    description:'Cuadre de carga: sistema vs listado, roll in/out, pendientes y detalle por contenedor.' },
+
+  { section:'reporting', order:65, status:'live', icon:'🔌',
+    name:'Connectivity Dashboard', tag:'Reporting · Conectividad', href:'#',
+    description:'Conectividad de la carga — foto del análisis, servida tal cual desde el portal.' },
+
+  { section:'reporting', order:70, status:'soon', icon:'🚢',
+    name:'TDR Analyzer', tag:'Vessel · Operations', href:null,
+    description:'Terminal Daily Report — operaciones, VOR, discrepancias y demoras.' },
+];
+
+const HERO = {
+  eyebrow: 'BrainPort · AI-Powered Strategic Platform',
+  title:   'Strategic Intelligence',
+  sub:     'BrainPort transforma los datos operativos en inteligencia confiable y accionable para decisiones más inteligentes en las terminales de la región — analítica, IA, soporte a decisiones y gestión de KPIs en una sola plataforma.',
+  subAccent: 'Powered by AI · Autonomous Agents · Real-Time Intelligence',
+  stats: [
+    { accent:'2',  rest:' min', label:'Data Refresh' },
+    { accent:'12', rest:'',     label:'Módulos Live' },
+    { accent:'1',  rest:'',     label:'En Pipeline' },
+    { accent:'0',  rest:'',     label:'Ext. Licenses' },
+  ],
+  kpis: [
+    { label:'Vessels Working', val:'4',     unit:'active', trend:'Datos de demo',      cls:'trend-up' },
+    { label:'Moves Pending',   val:'3,182', unit:'mvs',    trend:'Across all vessels',  cls:'trend-neutral' },
+    { label:'Avg CMPH',        val:'28.4',  unit:'mph',    trend:'Benchmark de demo',   cls:'trend-up' },
+    { label:'Últ. movimiento', val:'14:32', unit:'',       trend:'✓ hace 3 min',        cls:'trend-up' },
+  ],
+  vesselTitle: 'Vessels at Berth · Port of Balboa',
+  vessels: [
+    { name:'MAERSK KENSINGTON', berth:'B14 · Maersk Line', progress:78, pending:412 },
+    { name:'SEASPAN HAMBURG',   berth:'B16 · ONE',         progress:45, pending:1104 },
+    { name:'CMA CGM PANAMA',    berth:'B17 · CMA CGM',     progress:62, pending:836 },
+    { name:'MSC ARIANE',        berth:'B18 · MSC',         progress:21, pending:830 },
+  ],
+};
+
+const esc = s => String(s ?? '').replace(/[&<>"]/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
+
+const ICONO_MANTENIMIENTO =
+  '<svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M15.5 2a6.5 6.5 0 0 0-6.28 8.2L2.3 17.12a1 1 0 0 0 0 1.42l3.17 3.17a1 1 0 0 0 1.41 0l6.92-6.92A6.5 6.5 0 1 0 15.5 2m0 1a5.5 5.5 0 0 1 1.72.28l-2.9 2.9a1 1 0 0 0 0 1.41l1.42 1.42a1 1 0 0 0 1.41 0l2.9-2.9A5.5 5.5 0 0 1 12.9 13.6a1 1 0 0 0-1.13.2L6.18 19.6l-1.77-1.77 5.79-5.79a1 1 0 0 0 .2-1.13A5.5 5.5 0 0 1 15.5 3"/></svg>';
+
+document.getElementById('nav').innerHTML = SECCIONES.map(s =>
+  s.panel === false
+    ? `<a href="#"><div class="nav-item ${s.active ? 'active' : ''}">${esc(s.label)}</div></a>`
+    : `<div class="nav-item" data-abrir="${s.key}">${esc(s.label)}</div>`
+).join('');
+
+function tarjeta(app) {
+  const mantenimiento = app.status === 'maintenance';
+  const vivo    = app.status === 'live' || mantenimiento;
+  const enlaza  = vivo && app.href;
+  const externo = enlaza && app.external;
+
+  const badge = mantenimiento
+    ? `<span class="panel-card-badge maintenance" title="Se está trabajando en este módulo">${ICONO_MANTENIMIENTO} Módulo en mantenimiento</span>`
+    : `<span class="panel-card-badge ${vivo ? '' : 'soon'}">${vivo ? 'Live' : 'Próximamente'}</span>`;
+
+  return `
+  <a class="panel-card ${vivo ? '' : 'soon'} ${mantenimiento ? 'maintenance' : ''}"
+     ${enlaza ? `href="${esc(app.href)}"` : ''}
+     ${externo ? 'target="_blank" rel="noopener"' : ''}>
+    ${badge}
+    <div class="panel-card-icon">${esc(app.icon)}</div>
+    <div class="panel-card-title">${esc(app.name)}</div>
+    <div class="panel-card-desc">${esc(app.description)}</div>
+    <div class="panel-card-footer">
+      <span>${esc(app.tag)}</span>
+      <span>${enlaza ? (externo ? '↗' : '→') : ''}</span>
+    </div>
+  </a>`;
+}
+
+document.getElementById('paneles').innerHTML = SECCIONES
+  .filter(s => s.panel !== false)
+  .map(s => {
+    const apps = MODULOS
+      .filter(m => m.section === s.key)
+      .sort((a, b) => (a.order ?? 999) - (b.order ?? 999));
+    const cards = apps.length
+      ? apps.map(tarjeta).join('')
+      : '<div class="panel-empty">Sin aplicaciones en esta sección.</div>';
+    return `
+    <div class="section-panel" id="panel-${s.key}">
+      <div class="panel-header">
+        <div class="panel-title">${s.title}</div>
+        <button class="panel-close" type="button">✕ Cerrar</button>
+      </div>
+      <div class="panel-cards">${cards}</div>
+    </div>`;
+  }).join('');
+
+function abrirSeccion(key) {
+  cerrarSeccion();
+  const panel = document.getElementById('panel-' + key);
+  if (panel) { panel.classList.add('open'); document.body.classList.add('panel-open'); }
+}
+function cerrarSeccion() {
+  document.querySelectorAll('.section-panel').forEach(p => p.classList.remove('open'));
+  document.body.classList.remove('panel-open');
+}
+
+document.addEventListener('click', e => {
+  const abre = e.target.closest('[data-abrir]');
+  if (abre) { abrirSeccion(abre.dataset.abrir); return; }
+  if (e.target.closest('.panel-close')) { cerrarSeccion(); return; }
+  if (e.target.classList.contains('section-panel')) cerrarSeccion();
+});
+document.addEventListener('keydown', e => { if (e.key === 'Escape') cerrarSeccion(); });
+
+document.getElementById('hero-eyebrow').textContent = HERO.eyebrow;
+document.getElementById('hero-title').textContent   = HERO.title;
+document.getElementById('hero-sub').innerHTML =
+  `${esc(HERO.sub)}<span class="accent">${esc(HERO.subAccent)}</span>`;
+
+document.getElementById('hero-stats').innerHTML = HERO.stats.map(s => `
+  <div class="hero-stat">
+    <span class="hero-stat-val"><span class="accent">${esc(s.accent)}</span>${esc(s.rest)}</span>
+    <span class="hero-stat-label">${esc(s.label)}</span>
+  </div>`).join('');
+
+document.getElementById('kpi-bar').innerHTML = HERO.kpis.map(k => `
+  <div class="hero-kpi-item">
+    <span class="hero-kpi-label">${esc(k.label)}</span>
+    <span class="hero-kpi-val">${esc(k.val)}${k.unit ? ` <span class="unit">${esc(k.unit)}</span>` : ''}</span>
+    <span class="hero-kpi-trend ${k.cls}">${esc(k.trend)}</span>
+  </div>`).join('');
+
+document.getElementById('vessel-title').textContent = HERO.vesselTitle;
+document.getElementById('vessel-list').innerHTML = HERO.vessels.map(v => `
+  <div class="vessel-row">
+    <div class="vessel-row-left">
+      <span class="vessel-name" title="${esc(v.name)}">${esc(v.name)}</span>
+      <span class="vessel-berth">${esc(v.berth)}</span>
+    </div>
+    <div class="vessel-row-right">
+      <div class="vessel-progress-track">
+        <div class="vessel-progress-fill" style="width:${Number(v.progress) || 0}%"></div>
+      </div>
+      <span class="vessel-pending">${Number(v.pending).toLocaleString()} pend.</span>
+    </div>
+  </div>`).join('');
+</script>
+</body>
+</html>
