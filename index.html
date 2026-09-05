@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="es">
+<html lang="en">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -23,14 +23,14 @@
   body > .hero { flex:1 1 auto; }
 
   /* ── HEADER ── */
-  body > header { background:var(--dark-gray); padding:0 2.5rem; min-height:72px; display:flex;
+  body > header { background:var(--dark-gray); padding:0 2.5rem; min-height:140px; display:flex;
                   align-items:center; justify-content:space-between; flex-wrap:wrap; gap:.75rem;
                   border-bottom:3px solid var(--orange); }
-  .header-left { display:flex; align-items:center; gap:1.1rem; padding:.7rem 0; }
+  .header-left { display:flex; align-items:center; gap:1.1rem; padding:1.75rem 0; }
   .brand-mark { display:flex; align-items:center; gap:1.1rem; }
-  .brand-logo { width:118px; flex-shrink:0; }
+  .brand-logo { width:236px; flex-shrink:0; }
   .brand-logo svg { display:block; width:100%; height:auto; }
-  .brand-divider { width:1px; align-self:stretch; min-height:32px; background:rgba(255,255,255,.15); }
+  .brand-divider { width:1px; align-self:stretch; min-height:60px; background:rgba(255,255,255,.15); }
   .bridge-brand { display:flex; flex-direction:column; }
   .bridge-name { font-size:1.15rem; font-weight:700; color:var(--white); letter-spacing:.02em; }
   .bridge-name .brand-ai { color:var(--orange); }
@@ -71,34 +71,33 @@
   .hero-sub { font-size:1rem; font-weight:400; line-height:1.7; color:rgba(255,255,255,.55);
               max-width:600px; }
 
-  /* ── GAVETAS GRID ── */
-  .gaveta-grid { display:grid; grid-template-columns:repeat(3,1fr); gap:1.5rem; margin-top:3rem; }
-  .gaveta-card { background:rgba(255,255,255,.045); border:1px solid rgba(255,255,255,.1);
+  /* ── OPERATIONAL AREAS GRID ── */
+  .area-grid { display:grid; grid-template-columns:repeat(3,1fr); gap:1.5rem; margin-top:3rem; }
+  .area-card { background:rgba(255,255,255,.045); border:1px solid rgba(255,255,255,.1);
                  border-radius:16px; padding:1.9rem 1.7rem; cursor:pointer; transition:all .22s;
                  display:flex; flex-direction:column; gap:1rem; position:relative; overflow:hidden;
                  text-align:left; font-family:inherit; }
-  .gaveta-card::before { content:''; position:absolute; top:0; left:0; right:0; height:3px;
+  .area-card::before { content:''; position:absolute; top:0; left:0; right:0; height:3px;
                          background:var(--orange); transform:scaleX(0); transition:transform .2s;
                          transform-origin:left; }
-  .gaveta-card:hover, .gaveta-card:focus-visible { border-color:var(--orange); transform:translateY(-4px);
+  .area-card:hover, .area-card:focus-visible { border-color:var(--orange); transform:translateY(-4px);
                       box-shadow:0 12px 34px rgba(255,100,65,.16); outline:none; }
-  .gaveta-card:hover::before, .gaveta-card:focus-visible::before { transform:scaleX(1); }
-  .gaveta-icon-wrap { width:60px; height:60px; border-radius:14px; background:rgba(255,100,65,.14);
+  .area-card:hover::before, .area-card:focus-visible::before { transform:scaleX(1); }
+  .area-icon-wrap { width:150px; height:150px; border-radius:35px; background:rgba(255,100,65,.14);
                       display:flex; align-items:center; justify-content:center; }
-  .gaveta-icon-wrap svg { width:34px; height:34px; display:block; }
-  .gaveta-label { font-size:1.15rem; font-weight:700; color:var(--white); letter-spacing:.01em; }
-  .gaveta-desc { font-size:.82rem; color:rgba(255,255,255,.5); line-height:1.55; }
-  .gaveta-foot { margin-top:auto; padding-top:.9rem; border-top:1px solid rgba(255,255,255,.08);
+  .area-icon-wrap svg { width:85px; height:85px; display:block; }
+  .area-label { font-size:1.15rem; font-weight:700; color:var(--white); letter-spacing:.01em; }
+  .area-desc { font-size:.82rem; color:rgba(255,255,255,.5); line-height:1.55; }
+  .area-foot { margin-top:auto; padding-top:.9rem; border-top:1px solid rgba(255,255,255,.08);
                 display:flex; align-items:center; justify-content:space-between; }
-  .gaveta-protected { display:flex; align-items:center; gap:.4rem; font-size:.64rem; font-weight:700;
+  .area-protected { display:flex; align-items:center; gap:.4rem; font-size:.64rem; font-weight:700;
                       letter-spacing:.08em; text-transform:uppercase; color:rgba(255,255,255,.4); }
-  .gaveta-protected svg { width:13px; height:13px; color:rgba(255,255,255,.4); }
-  .gaveta-protected svg * { fill:currentColor !important; }
-  .gaveta-arrow { color:var(--orange); font-size:1rem; }
-  .gaveta-hint { margin-top:2.25rem; text-align:center; font-size:.76rem; color:rgba(255,255,255,.35); }
+  .area-protected svg { width:13px; height:13px; color:rgba(255,255,255,.4); }
+  .area-protected svg * { fill:currentColor !important; }
+  .area-arrow { color:var(--orange); font-size:1rem; }
 
-  @media (max-width:900px){ .gaveta-grid{ grid-template-columns:repeat(2,1fr); } .hero-title{font-size:2.2rem;} }
-  @media (max-width:600px){ .gaveta-grid{ grid-template-columns:1fr; }
+  @media (max-width:900px){ .area-grid{ grid-template-columns:repeat(2,1fr); } .hero-title{font-size:2.2rem;} }
+  @media (max-width:600px){ .area-grid{ grid-template-columns:1fr; }
                              body > header{padding:0 1.25rem;} .hero-inner{padding:2.25rem 1.25rem 3rem;} footer{padding:.85rem 1.25rem;} }
 
   /* ── GATE (PASSWORD) MODAL ── */
@@ -131,7 +130,7 @@
   .gate-btn-submit { background:var(--orange); color:#fff; }
   .gate-btn-submit:hover { background:#e5522f; }
 
-  /* ── TOOLS PANELS ── */
+  /* ── TOOL PANELS ── */
   .section-panel { display:none; position:fixed; inset:0; z-index:200; background:rgba(10,15,20,.92);
                    backdrop-filter:blur(8px); flex-direction:column; align-items:center;
                    justify-content:center; padding:2rem; animation:fadeInPanel .25s ease; }
@@ -221,7 +220,7 @@
   </div>
   <div class="header-right">
     <div class="user-box">
-      <span class="user-name">Mobile Team</span>
+      <span class="user-name">APMT Mobile Strategy Team</span>
     </div>
   </div>
 </header>
@@ -233,16 +232,15 @@
 
   <div class="hero-inner">
     <div class="hero-eyebrow">APM Terminals Mobile · Alabama</div>
-    <div class="hero-title">Elige tu <strong>área operativa</strong></div>
-    <div class="hero-sub">El SMART Hub reúne las herramientas, calculadoras y reportes construidos para las operaciones de APM Terminals Mobile. Cada gaveta agrupa las herramientas de su área — selecciona la tuya para continuar.</div>
+    <div class="hero-title">Select your <strong>operational area</strong></div>
+    <div class="hero-sub">SMART Hub brings together the tools and applications developed by the Terminal's Strategy team.</div>
 
-    <div class="gaveta-grid" id="gaveta-grid"></div>
-    <div class="gaveta-hint">¿No tienes la contraseña de tu gaveta? Solicítala a tu supervisor de Operations.</div>
+    <div class="area-grid" id="area-grid"></div>
   </div>
 </main>
 
 <footer>
-  <span><span class="footer-brand">APM Terminals <span class="brand-ai">Mobile</span></span> · APMT Business System (ABS) &amp; Operations Strategy</span>
+  <span><span class="footer-brand">APM Terminals <span class="brand-ai">Mobile</span></span> · APMT Business System (ABS)</span>
   <span>APM Terminals Mobile · Classification: Internal</span>
   <span class="footer-tagline">Lifting Global Trade</span>
 </footer>
@@ -251,70 +249,45 @@
 <div class="gate-modal" id="gate-modal">
   <div class="gate-card" id="gate-card">
     <div class="gate-icon"><svg><use href="#ico-lock"/></svg></div>
-    <div class="gate-title">Acceso protegido</div>
-    <div class="gate-sub">Ingresa la contraseña de la gaveta <strong id="gate-target-name"></strong> para continuar.</div>
+    <div class="gate-title">Protected Access</div>
+    <div class="gate-sub">Enter the password for the <strong id="gate-target-name"></strong> area to continue.</div>
     <form id="gate-form">
-      <input class="gate-input" type="password" id="gate-input" placeholder="Contraseña" autocomplete="off" required>
-      <div class="gate-error" id="gate-error">Contraseña incorrecta. Verifica con tu supervisor de Operations.</div>
+      <input class="gate-input" type="password" id="gate-input" placeholder="Password" autocomplete="off" required>
+      <div class="gate-error" id="gate-error">Incorrect password. Please verify with your Operations supervisor.</div>
       <div class="gate-actions">
-        <button type="button" class="gate-btn gate-btn-cancel" id="gate-cancel">Cancelar</button>
-        <button type="submit" class="gate-btn gate-btn-submit">Ingresar →</button>
+        <button type="button" class="gate-btn gate-btn-cancel" id="gate-cancel">Cancel</button>
+        <button type="submit" class="gate-btn gate-btn-submit">Continue →</button>
       </div>
     </form>
   </div>
 </div>
 
-<div id="paneles"></div>
+<div id="panels"></div>
 
 <script>
 /* ══════════════════════════════════════════════════════════════════════════
-   GAVETAS — áreas operativas de APM Terminals Mobile
+   OPERATIONAL AREAS — APM Terminals Mobile
    ══════════════════════════════════════════════════════════════════════════ */
 
-const GAVETAS = [
-  { key:'Strategy', icon:'ico-strategy', desc:'Planeación operativa, metas y reportes del APMT Business System (ABS).' },
-  { key:'Vessel',   icon:'ico-vessel',   desc:'Buques en muelle, planificación de estiba y productividad de grúas.' },
-  { key:'Yard',     icon:'ico-yard',     desc:'Estado del patio, flujo de tractores y desempeño de operadores.' },
-  { key:'Gate',     icon:'ico-gate',     desc:'Citas, procesos de ingreso y flujo de camiones en puerta.' },
-  { key:'Rail',     icon:'ico-rail',     desc:'Programación y movimientos de la operación ferroviaria.' },
-  { key:'VAS',      icon:'ico-vas',      desc:'Servicios de valor agregado — stuffing, stripping y más.' },
+const OPERATIONAL_AREAS = [
+  { key:'Strategy', icon:'ico-strategy', desc:'Operational planning, performance targets, and ABS reporting for the Terminal.' },
+  { key:'Vessel',   icon:'ico-vessel',   desc:'Vessels at berth, stowage planning, and crane productivity.' },
+  { key:'Yard',     icon:'ico-yard',     desc:'Yard status, prime mover flow, and operator performance.' },
+  { key:'Gate',     icon:'ico-gate',     desc:'Appointments, gate-in/gate-out processing, and truck flow.' },
+  { key:'Rail',     icon:'ico-rail',     desc:'Rail operations scheduling and railcar movements.' },
+  { key:'VAS',      icon:'ico-vas',      desc:'Value-added services — stuffing, stripping, and more.' },
 ];
 
-const MODULOS = [
-  { section:'Vessel', order:10, status:'live', icon:'🚢',
-    name:'Vessels at Berth', tag:'Vessel · Ops', href:'#',
-    description:'Estado de buques en muelle — moves pendientes, completados y CMPH en vivo.' },
-  { section:'Vessel', order:20, status:'live', icon:'📊',
-    name:'Planning Quality Calculator', tag:'Planning · XPS', href:'#',
-    description:'Métricas de planificación — rehandles, clashes, dual cycle y optimización de bahías.' },
-  { section:'Vessel', order:30, status:'live', icon:'🤖', external:true,
-    name:'Vessel AI Assistant', tag:'AI · Vessel Ops', href:'#',
-    description:'Asistente inteligente para diagnóstico ejecutivo de buques en muelle.' },
+/* No tools have been built yet. As each tool is developed, add its entry
+   here with the correct `area` (matching an OPERATIONAL_AREAS key) and
+   `href` pointing at tools/<area>/<name>/index.html. */
+const TOOLS = [];
 
-  { section:'Yard', order:10, status:'live', icon:'🗺️',
-    name:'Yard Operations Map', tag:'Yard · Live operations', href:'#',
-    description:'Visualización del estado del patio, flujo de tractores y zonas de congestión.' },
-  { section:'Yard', order:20, status:'live', icon:'🏆',
-    name:'Operator Performance', tag:'Yard · Operator ranking', href:'#',
-    description:'Ranking de rendimiento de operadores contra metas operacionales.' },
-  { section:'Yard', order:30, status:'live', icon:'🏗️', external:true,
-    name:'Work Instructions Simulator', tag:'Yard & Crane Ops', href:'#',
-    description:'Simulador de grúas activas con prevención de clashes en patio.' },
-
-  { section:'Strategy', order:10, status:'live', icon:'🎯',
-    name:'Shift Productivity Targets', tag:'ABS · Meta Semanal', href:'#',
-    description:'Productividad requerida por turno para cumplir objetivos semanales.' },
-  { section:'Strategy', order:20, status:'live', icon:'📋', external:true,
-    name:'Reporte Ejecutivo de Turno', tag:'ABS · Reporting', href:'#',
-    description:'Resumen operacional por turno — KPIs clave y análisis del handover.' },
-  { section:'Strategy', order:30, status:'live', icon:'🔌',
-    name:'Connectivity Dashboard', tag:'ABS · Conectividad', href:'#',
-    description:'Análisis de conectividad de transbordos e importaciones.' },
-];
-
-/* SHA-256 de "ABS.<Gaveta>" — el gate compara contra estos hashes, nunca contra texto plano. */
-const GAVETA_HASHES = {
-  Strategy: 'f6d0d6562137dff40cb0d0aa415d3f2a435726d44d82f14185d3a25c0c13f218',
+/* SHA-256 of each area's password — the gate compares against these
+   hashes, never against plaintext. Strategy uses its own password
+   (Mobile.Strategy); every other area uses ABS.<Area>. */
+const AREA_HASHES = {
+  Strategy: '02a8861d5858e172ab63007e4f5c11a7eefd06332030dc70f6ffe2dfb8322adc',
   Vessel:   '778b07e4f38bfba5cbab8f5c9c8d3e8b1b35594d816246803bb5c57ec5891118',
   Yard:     'e3af8a3b4b5279e28fc1115d0a0a05dbc01c75119fb2b9b519a544503f7f45d6',
   Gate:     'aceb9eb09a43f366a05fcec07d1a5d0242e9dc9d5bc8c73dfc14d183f65bca59',
@@ -323,66 +296,66 @@ const GAVETA_HASHES = {
 };
 
 /* ══════════════════════════════════════════════════════════════════════════
-   MOTOR DE LA PÁGINA
+   PAGE ENGINE
    ══════════════════════════════════════════════════════════════════════════ */
 
 const esc = s => String(s ?? '').replace(/[&<>"]/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
 
-document.getElementById('gaveta-grid').innerHTML = GAVETAS.map(g => `
-  <button type="button" class="gaveta-card" data-gaveta="${esc(g.key)}">
-    <div class="gaveta-icon-wrap"><svg><use href="#${esc(g.icon)}"/></svg></div>
-    <div class="gaveta-label">${esc(g.key)}</div>
-    <div class="gaveta-desc">${esc(g.desc)}</div>
-    <div class="gaveta-foot">
-      <span class="gaveta-protected"><svg><use href="#ico-lock"/></svg> Acceso protegido</span>
-      <span class="gaveta-arrow">→</span>
+document.getElementById('area-grid').innerHTML = OPERATIONAL_AREAS.map(a => `
+  <button type="button" class="area-card" data-area="${esc(a.key)}">
+    <div class="area-icon-wrap"><svg><use href="#${esc(a.icon)}"/></svg></div>
+    <div class="area-label">${esc(a.key)}</div>
+    <div class="area-desc">${esc(a.desc)}</div>
+    <div class="area-foot">
+      <span class="area-protected"><svg><use href="#ico-lock"/></svg> Protected Access</span>
+      <span class="area-arrow">→</span>
     </div>
   </button>`).join('');
 
-function tarjeta(app) {
-  const vivo    = app.status === 'live';
-  const enlaza  = vivo && app.href;
-  const externo = enlaza && app.external;
-  const badge = `<span class="panel-card-badge ${vivo ? '' : 'soon'}">${vivo ? 'Live' : 'Próximamente'}</span>`;
+function toolCard(app) {
+  const live    = app.status === 'live';
+  const linked  = live && app.href;
+  const external = linked && app.external;
+  const badge = `<span class="panel-card-badge ${live ? '' : 'soon'}">${live ? 'Live' : 'Coming soon'}</span>`;
   return `
-  <a class="panel-card ${vivo ? '' : 'soon'}"
-     ${enlaza ? `href="${esc(app.href)}"` : ''}
-     ${externo ? 'target="_blank" rel="noopener"' : ''}>
+  <a class="panel-card ${live ? '' : 'soon'}"
+     ${linked ? `href="${esc(app.href)}"` : ''}
+     ${external ? 'target="_blank" rel="noopener"' : ''}>
     ${badge}
     <div class="panel-card-icon">${esc(app.icon)}</div>
     <div class="panel-card-title">${esc(app.name)}</div>
     <div class="panel-card-desc">${esc(app.description)}</div>
     <div class="panel-card-footer">
       <span>${esc(app.tag)}</span>
-      <span>${enlaza ? (externo ? '↗' : '→') : ''}</span>
+      <span>${linked ? (external ? '↗' : '→') : ''}</span>
     </div>
   </a>`;
 }
 
-document.getElementById('paneles').innerHTML = GAVETAS.map(g => {
-  const apps = MODULOS.filter(m => m.section === g.key).sort((a, b) => (a.order ?? 999) - (b.order ?? 999));
+document.getElementById('panels').innerHTML = OPERATIONAL_AREAS.map(a => {
+  const apps = TOOLS.filter(t => t.area === a.key).sort((x, y) => (x.order ?? 999) - (y.order ?? 999));
   const cards = apps.length
-    ? apps.map(tarjeta).join('')
-    : `<div class="panel-empty">Aún no hay herramientas registradas en la gaveta <strong>${esc(g.key)}</strong>. Nuevas herramientas se agregarán próximamente.</div>`;
+    ? apps.map(toolCard).join('')
+    : `<div class="panel-empty">No tools have been added to the <strong>${esc(a.key)}</strong> area yet. New tools will appear here as they are built.</div>`;
   return `
-  <div class="section-panel" id="panel-${esc(g.key)}">
+  <div class="section-panel" id="panel-${esc(a.key)}">
     <div class="panel-header">
-      <div class="panel-header-icon"><svg><use href="#${esc(g.icon)}"/></svg></div>
+      <div class="panel-header-icon"><svg><use href="#${esc(a.icon)}"/></svg></div>
       <div class="panel-header-text">
-        <div class="panel-title">${esc(g.key)}</div>
-        <div class="panel-subtitle">${esc(g.desc)}</div>
+        <div class="panel-title">${esc(a.key)}</div>
+        <div class="panel-subtitle">${esc(a.desc)}</div>
       </div>
-      <button class="panel-close" type="button">✕ Cerrar</button>
+      <button class="panel-close" type="button">✕ Close</button>
     </div>
     <div class="panel-cards">${cards}</div>
   </div>`;
 }).join('');
 
-/* ── Control de acceso por gaveta ──
-   Nota: este portal es 100% estático (sin backend), por lo que esta capa de
-   contraseña es un control de acceso liviano — no protección contra un
-   atacante con acceso al código fuente del repositorio. No coloques datos
-   operativos reales o sensibles detrás de este gate. */
+/* ── Per-area access control ──
+   Note: this portal is 100% static (no backend), so this password layer
+   is a light access-control gate — not protection against someone with
+   access to the repository's source code. Never put real or sensitive
+   operational data behind this gate. */
 
 async function sha256Hex(text) {
   const buf = await crypto.subtle.digest('SHA-256', new TextEncoder().encode(text));
@@ -391,12 +364,12 @@ async function sha256Hex(text) {
 
 function unlockedKey(key) { return 'smarthub_unlocked_' + key; }
 
-function abrirPanel(key) {
-  cerrarTodo();
+function openPanel(key) {
+  closeAll();
   const panel = document.getElementById('panel-' + key);
   if (panel) { panel.classList.add('open'); document.body.classList.add('panel-open'); }
 }
-function cerrarTodo() {
+function closeAll() {
   document.querySelectorAll('.section-panel').forEach(p => p.classList.remove('open'));
   document.getElementById('gate-modal').classList.remove('open');
   document.body.classList.remove('panel-open');
@@ -410,8 +383,8 @@ const gateInput  = document.getElementById('gate-input');
 const gateError  = document.getElementById('gate-error');
 const gateName   = document.getElementById('gate-target-name');
 
-function abrirGaveta(key) {
-  if (sessionStorage.getItem(unlockedKey(key)) === '1') { abrirPanel(key); return; }
+function openArea(key) {
+  if (sessionStorage.getItem(unlockedKey(key)) === '1') { openPanel(key); return; }
   gateTarget = key;
   gateName.textContent = key;
   gateInput.value = '';
@@ -425,10 +398,10 @@ gateForm.addEventListener('submit', async e => {
   e.preventDefault();
   if (!gateTarget) return;
   const hash = await sha256Hex(gateInput.value);
-  if (hash === GAVETA_HASHES[gateTarget]) {
+  if (hash === AREA_HASHES[gateTarget]) {
     sessionStorage.setItem(unlockedKey(gateTarget), '1');
     gateModal.classList.remove('open');
-    abrirPanel(gateTarget);
+    openPanel(gateTarget);
   } else {
     gateError.classList.add('show');
     gateCard.classList.remove('shake'); void gateCard.offsetWidth; gateCard.classList.add('shake');
@@ -443,13 +416,13 @@ document.getElementById('gate-cancel').addEventListener('click', () => {
 });
 
 document.addEventListener('click', e => {
-  const card = e.target.closest('[data-gaveta]');
-  if (card) { abrirGaveta(card.dataset.gaveta); return; }
-  if (e.target.closest('.panel-close')) { cerrarTodo(); return; }
+  const card = e.target.closest('[data-area]');
+  if (card) { openArea(card.dataset.area); return; }
+  if (e.target.closest('.panel-close')) { closeAll(); return; }
   if (e.target === gateModal) { gateModal.classList.remove('open'); document.body.classList.remove('panel-open'); return; }
-  if (e.target.classList.contains('section-panel')) cerrarTodo();
+  if (e.target.classList.contains('section-panel')) closeAll();
 });
-document.addEventListener('keydown', e => { if (e.key === 'Escape') cerrarTodo(); });
+document.addEventListener('keydown', e => { if (e.key === 'Escape') closeAll(); });
 </script>
 </body>
 </html>
