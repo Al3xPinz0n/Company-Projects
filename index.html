@@ -3,67 +3,54 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>APM Terminals Mobile · Operations Portal</title>
+<title>SMART Hub · APM Terminals Mobile</title>
 <style>
+  @font-face { font-family:'Maersk Text'; font-weight:300; font-style:normal; src:url('assets/fonts/MaerskText-Light.ttf') format('truetype'); font-display:swap; }
+  @font-face { font-family:'Maersk Text'; font-weight:400; font-style:normal; src:url('assets/fonts/MaerskText-Regular.ttf') format('truetype'); font-display:swap; }
+  @font-face { font-family:'Maersk Text'; font-weight:700; font-style:normal; src:url('assets/fonts/MaerskText-Bold.ttf') format('truetype'); font-display:swap; }
+
   :root {
     --orange:#FF6441; --dark-gray:#3C3C46; --medium-gray:#5A6E7D; --neutral-gray:#AAB4C3;
     --light-gray:#E6EBF2; --aqua:#0A6E82; --maersk-blue:#42B0D5; --soft-yellow:#F0BE78;
     --white:#FFFFFF; --hero-dark:#22262E; --hero-darker:#191C22;
+    --font:'Maersk Text', Arial, sans-serif;
   }
   * { margin:0; padding:0; box-sizing:border-box; }
-  body { font-family:'Inter','Segoe UI',system-ui,sans-serif; background:var(--white);
-         color:var(--dark-gray); height:100vh; height:100dvh; overflow:hidden;
-         display:flex; flex-direction:column; }
+  body { font-family:var(--font); background:var(--white); color:var(--dark-gray);
+         min-height:100vh; display:flex; flex-direction:column; }
   a { text-decoration:none; color:inherit; }
-  body > header, body > nav, body > footer { flex:0 0 auto; }
-  body > .hero { flex:1 1 auto; min-height:0; }
+  body > header, body > footer { flex:0 0 auto; }
+  body > .hero { flex:1 1 auto; }
 
   /* ── HEADER ── */
-  body > header { background:var(--dark-gray); padding:0 2.5rem; height:64px; display:flex;
-                  align-items:center; justify-content:space-between;
+  body > header { background:var(--dark-gray); padding:0 2.5rem; min-height:72px; display:flex;
+                  align-items:center; justify-content:space-between; flex-wrap:wrap; gap:.75rem;
                   border-bottom:3px solid var(--orange); }
-  .header-left { display:flex; align-items:center; gap:1.5rem; }
-  .brand-mark { display:flex; align-items:center; gap:.6rem; }
-  .brand-glyph { width:38px; height:38px; display:block; filter:drop-shadow(0 3px 6px rgba(0,0,0,.28)); }
-  .brand-glyph img { display:block; width:100%; height:100%; object-fit:contain; }
+  .header-left { display:flex; align-items:center; gap:1.1rem; padding:.7rem 0; }
+  .brand-mark { display:flex; align-items:center; gap:1.1rem; }
+  .brand-logo { width:118px; flex-shrink:0; }
+  .brand-logo svg { display:block; width:100%; height:auto; }
+  .brand-divider { width:1px; align-self:stretch; min-height:32px; background:rgba(255,255,255,.15); }
   .bridge-brand { display:flex; flex-direction:column; }
-  .bridge-name { font-size:1.05rem; font-weight:800; color:var(--white); letter-spacing:.06em; }
+  .bridge-name { font-size:1.15rem; font-weight:700; color:var(--white); letter-spacing:.02em; }
   .bridge-name .brand-ai { color:var(--orange); }
-  .bridge-sub { font-size:.6rem; color:var(--neutral-gray); letter-spacing:.04em; }
+  .bridge-sub { font-size:.66rem; color:var(--neutral-gray); letter-spacing:.03em; margin-top:.15rem; }
   .header-right { display:flex; align-items:center; gap:1.5rem; }
-  .live-badge { display:flex; align-items:center; gap:.4rem; background:rgba(255,100,65,.15);
-                border:1px solid var(--orange); border-radius:20px; padding:.25rem .75rem;
-                font-size:.68rem; font-weight:600; color:var(--orange); letter-spacing:.05em; }
-  .live-dot { width:7px; height:7px; background:var(--orange); border-radius:50%; animation:pulse 2s infinite; }
-  @keyframes pulse { 0%,100%{opacity:1;transform:scale(1);} 50%{opacity:.4;transform:scale(1.4);} }
   .user-box { display:flex; align-items:center; gap:.6rem; }
-  .user-name { font-size:.78rem; color:var(--light-gray); font-weight:600; }
-  .logout-btn { background:rgba(255,255,255,.06); border:1px solid rgba(255,255,255,.15);
-                color:var(--neutral-gray); font-size:.72rem; font-weight:600; padding:.3rem .7rem;
-                border-radius:6px; cursor:pointer; transition:all .2s; font-family:inherit; }
-  .logout-btn:hover { background:var(--orange); border-color:var(--orange); color:#fff; }
-
-  /* ── NAV ── */
-  body > nav { background:var(--white); border-bottom:1px solid var(--light-gray);
-               padding:0 2.5rem; display:flex; overflow-x:auto; }
-  .nav-item { padding:.9rem 1.4rem; font-size:.82rem; font-weight:500; color:var(--medium-gray);
-              cursor:pointer; border-bottom:3px solid transparent; transition:all .25s; white-space:nowrap; }
-  .nav-item:hover { color:var(--dark-gray); }
-  .nav-item.active { color:var(--orange); border-bottom-color:var(--orange); font-weight:600; }
+  .user-name { font-size:.78rem; color:var(--light-gray); font-weight:700; }
 
   /* ── FOOTER ── */
-  footer { background:var(--hero-darker); color:var(--neutral-gray); padding:.7rem 2.5rem;
+  footer { background:var(--hero-darker); color:var(--neutral-gray); padding:.85rem 2.5rem;
            display:flex; flex-wrap:wrap; gap:1rem; justify-content:space-between; font-size:.7rem; }
   .footer-brand { color:var(--white); font-weight:700; }
   .footer-brand .brand-ai { color:var(--orange); }
+  .footer-tagline { color:var(--orange); font-weight:700; letter-spacing:.04em; }
 
   /* ── HERO ── */
-  .hero { background:var(--hero-dark); position:relative; overflow:hidden;
-          display:flex; flex-direction:column; }
-  .hero-glow-left { position:absolute; left:-200px; top:50%; transform:translateY(-50%);
-                    width:700px; height:700px; pointer-events:none; z-index:1;
-                    background:radial-gradient(circle,rgba(255,100,65,.07) 0%,transparent 65%); }
-  .hero-glow-right { position:absolute; right:-100px; top:30%; width:500px; height:500px;
+  .hero { background:var(--hero-dark); position:relative; overflow:hidden; }
+  .hero-glow-left { position:absolute; left:-200px; top:20%; width:700px; height:700px; pointer-events:none; z-index:1;
+                    background:radial-gradient(circle,rgba(255,100,65,.08) 0%,transparent 65%); }
+  .hero-glow-right { position:absolute; right:-160px; bottom:-100px; width:560px; height:560px;
                      pointer-events:none; z-index:1;
                      background:radial-gradient(circle,rgba(66,176,213,.06) 0%,transparent 65%); }
   .hero-grid { position:absolute; inset:0; z-index:1; pointer-events:none;
@@ -72,97 +59,98 @@
                background-size:60px 60px;
                -webkit-mask-image:radial-gradient(ellipse 80% 80% at 50% 50%,black 0%,transparent 100%);
                mask-image:radial-gradient(ellipse 80% 80% at 50% 50%,black 0%,transparent 100%); }
-  .hero-content { position:relative; z-index:2; max-width:1400px; margin:0 auto; width:100%;
-                  padding:1.5rem 2.5rem; display:grid;
-                  grid-template-columns:minmax(0,1fr) minmax(500px,580px); gap:2rem;
-                  align-items:center; flex:1 1 auto; min-height:0; }
+  .hero-inner { position:relative; z-index:2; max-width:1180px; margin:0 auto; width:100%;
+                padding:3.25rem 2.5rem 4.5rem; }
   .hero-eyebrow { display:inline-flex; align-items:center; gap:.5rem; font-size:.65rem;
-                  font-weight:600; letter-spacing:.2em; text-transform:uppercase;
-                  color:var(--orange); margin-bottom:1.5rem; }
+                  font-weight:700; letter-spacing:.2em; text-transform:uppercase;
+                  color:var(--orange); margin-bottom:1.25rem; }
   .hero-eyebrow::before { content:''; width:24px; height:1px; background:var(--orange); }
-  .hero-logo { display:flex; align-items:center; gap:1.1rem; margin-bottom:1.1rem; }
-  .hero-brand-icon { width:78px; height:78px; flex-shrink:0; filter:drop-shadow(0 8px 18px rgba(0,0,0,.34)); }
-  .hero-brand-icon img { display:block; width:100%; height:100%; object-fit:contain; }
-  .hero-logo-word { font-size:2.9rem; font-weight:800; letter-spacing:-.02em; color:var(--white); line-height:1; }
-  .hero-logo-word .brand-ai { color:var(--orange); }
-  .hero-title { font-size:3.2rem; font-weight:800; color:var(--white); line-height:1.08;
-                letter-spacing:-.025em; margin-bottom:1.25rem; }
-  .hero-title strong { font-weight:800; color:var(--orange); }
-  .hero-sub { font-size:1rem; font-weight:300; line-height:1.75; color:rgba(255,255,255,.5);
-              max-width:520px; margin-bottom:2.5rem; }
-  .hero-sub .accent { display:inline-block; margin-top:.6rem; font-size:.8rem; font-weight:600;
-                      color:var(--orange); letter-spacing:.05em; }
-  .hero-stats { display:flex; }
-  .hero-stat { display:flex; flex-direction:column; padding:1rem 2rem 1rem 0; margin-right:2rem;
-               border-right:1px solid rgba(255,255,255,.1); }
-  .hero-stat:last-child { border-right:none; margin-right:0; }
-  .hero-stat-val { font-size:2rem; font-weight:700; color:var(--white); line-height:1; letter-spacing:-.02em; }
-  .hero-stat-val .accent { color:var(--orange); }
-  .hero-stat-label { font-size:.62rem; color:rgba(255,255,255,.38); margin-top:.35rem;
-                     font-weight:500; letter-spacing:.1em; text-transform:uppercase; }
+  .hero-title { font-size:2.75rem; font-weight:300; color:var(--white); line-height:1.15;
+                letter-spacing:-.02em; margin-bottom:1.1rem; max-width:640px; }
+  .hero-title strong { font-weight:700; color:var(--orange); }
+  .hero-sub { font-size:1rem; font-weight:400; line-height:1.7; color:rgba(255,255,255,.55);
+              max-width:600px; }
 
-  /* Panel lateral de buques */
-  .vessel-module { height:520px; max-height:100%; background:rgba(255,255,255,.04);
-                   border:1px solid rgba(255,255,255,.1); border-radius:16px; overflow:hidden;
-                   backdrop-filter:blur(12px); display:flex; flex-direction:column; }
-  .vessel-module-header { padding:1rem 1.4rem; border-bottom:1px solid rgba(255,255,255,.08);
-                          display:flex; align-items:center; justify-content:space-between; flex:0 0 auto; }
-  .vessel-module-title { font-size:.62rem; font-weight:700; letter-spacing:.14em;
-                         text-transform:uppercase; color:rgba(255,255,255,.4); }
-  .vessel-module-live { display:flex; align-items:center; gap:.35rem; font-size:.6rem; font-weight:700;
-                        letter-spacing:.1em; text-transform:uppercase; color:var(--orange); }
-  .vessel-module-live-dot { width:5px; height:5px; border-radius:50%; background:var(--orange);
-                            animation:pulse 2s infinite; }
-  .vessel-list { flex:1 1 auto; overflow-y:auto; min-height:0; }
-  .vessel-row { display:flex; align-items:center; justify-content:space-between; padding:.85rem 1.4rem;
-                border-bottom:1px solid rgba(255,255,255,.05); gap:1rem; }
-  .vessel-row:last-child { border-bottom:none; }
-  .vessel-row:hover { background:rgba(255,255,255,.03); }
-  .vessel-row-left { display:flex; flex-direction:column; gap:.2rem; min-width:0; }
-  .vessel-name { font-size:.8rem; color:var(--white); font-weight:600; white-space:nowrap;
-                 overflow:hidden; text-overflow:ellipsis; max-width:170px; }
-  .vessel-berth { font-size:.62rem; color:rgba(255,255,255,.3); }
-  .vessel-row-right { display:flex; flex-direction:column; align-items:flex-end; gap:.25rem; flex-shrink:0; }
-  .vessel-progress-track { width:90px; height:3px; background:rgba(255,255,255,.08);
-                           border-radius:2px; overflow:hidden; }
-  .vessel-progress-fill { height:100%; border-radius:2px;
-                          background:linear-gradient(90deg,var(--aqua),var(--maersk-blue)); }
-  .vessel-pending { font-size:.6rem; color:var(--orange); font-weight:700; font-variant-numeric:tabular-nums; }
-  .vessel-module-foot { flex:0 0 auto; text-align:center; padding:.6rem;
-                        background:rgba(34,38,46,.85); color:var(--orange);
-                        font-size:.72rem; font-weight:600; border-top:1px solid rgba(255,255,255,.08); }
+  /* ── GAVETAS GRID ── */
+  .gaveta-grid { display:grid; grid-template-columns:repeat(3,1fr); gap:1.5rem; margin-top:3rem; }
+  .gaveta-card { background:rgba(255,255,255,.045); border:1px solid rgba(255,255,255,.1);
+                 border-radius:16px; padding:1.9rem 1.7rem; cursor:pointer; transition:all .22s;
+                 display:flex; flex-direction:column; gap:1rem; position:relative; overflow:hidden;
+                 text-align:left; font-family:inherit; }
+  .gaveta-card::before { content:''; position:absolute; top:0; left:0; right:0; height:3px;
+                         background:var(--orange); transform:scaleX(0); transition:transform .2s;
+                         transform-origin:left; }
+  .gaveta-card:hover, .gaveta-card:focus-visible { border-color:var(--orange); transform:translateY(-4px);
+                      box-shadow:0 12px 34px rgba(255,100,65,.16); outline:none; }
+  .gaveta-card:hover::before, .gaveta-card:focus-visible::before { transform:scaleX(1); }
+  .gaveta-icon-wrap { width:60px; height:60px; border-radius:14px; background:rgba(255,100,65,.14);
+                      display:flex; align-items:center; justify-content:center; }
+  .gaveta-icon-wrap svg { width:34px; height:34px; display:block; }
+  .gaveta-label { font-size:1.15rem; font-weight:700; color:var(--white); letter-spacing:.01em; }
+  .gaveta-desc { font-size:.82rem; color:rgba(255,255,255,.5); line-height:1.55; }
+  .gaveta-foot { margin-top:auto; padding-top:.9rem; border-top:1px solid rgba(255,255,255,.08);
+                display:flex; align-items:center; justify-content:space-between; }
+  .gaveta-protected { display:flex; align-items:center; gap:.4rem; font-size:.64rem; font-weight:700;
+                      letter-spacing:.08em; text-transform:uppercase; color:rgba(255,255,255,.4); }
+  .gaveta-protected svg { width:13px; height:13px; color:rgba(255,255,255,.4); }
+  .gaveta-protected svg * { fill:currentColor !important; }
+  .gaveta-arrow { color:var(--orange); font-size:1rem; }
+  .gaveta-hint { margin-top:2.25rem; text-align:center; font-size:.76rem; color:rgba(255,255,255,.35); }
 
-  /* ── BARRA DE KPIs ── */
-  .hero-kpi-bar { position:relative; z-index:2; flex:0 0 auto; border-top:1px solid rgba(255,255,255,.06);
-                  background:rgba(0,0,0,.2); display:flex; flex-wrap:wrap; }
-  .hero-kpi-item { flex:1; min-width:180px; padding:1.1rem 2rem;
-                   border-right:1px solid rgba(255,255,255,.06);
-                   display:flex; flex-direction:column; gap:.15rem; }
-  .hero-kpi-item:last-child { border-right:none; }
-  .hero-kpi-label { font-size:.58rem; font-weight:600; letter-spacing:.12em;
-                    text-transform:uppercase; color:rgba(255,255,255,.3); }
-  .hero-kpi-val { font-size:1.3rem; font-weight:700; color:var(--white); line-height:1;
-                  font-variant-numeric:tabular-nums; }
-  .hero-kpi-val .unit { font-size:.72rem; font-weight:400; color:rgba(255,255,255,.35); margin-left:2px; }
-  .hero-kpi-trend { font-size:.62rem; font-weight:500; margin-top:.1rem; }
-  .trend-up { color:#4ade80; } .trend-neutral { color:rgba(255,255,255,.3); }
+  @media (max-width:900px){ .gaveta-grid{ grid-template-columns:repeat(2,1fr); } .hero-title{font-size:2.2rem;} }
+  @media (max-width:600px){ .gaveta-grid{ grid-template-columns:1fr; }
+                             body > header{padding:0 1.25rem;} .hero-inner{padding:2.25rem 1.25rem 3rem;} footer{padding:.85rem 1.25rem;} }
 
-  /* ── PANELES DE MÓDULOS ── */
-  .section-panel { display:none; position:fixed; inset:0; z-index:150; background:rgba(10,15,20,.92);
+  /* ── GATE (PASSWORD) MODAL ── */
+  .gate-modal { display:none; position:fixed; inset:0; z-index:300; background:rgba(10,15,20,.85);
+                backdrop-filter:blur(6px); align-items:center; justify-content:center; padding:1.5rem; }
+  .gate-modal.open { display:flex; }
+  .gate-card { background:var(--white); border-radius:16px; padding:2.2rem; width:380px; max-width:100%;
+               box-shadow:0 24px 60px rgba(0,0,0,.35); animation:gateIn .2s ease; }
+  @keyframes gateIn { from{opacity:0; transform:translateY(10px);} to{opacity:1; transform:translateY(0);} }
+  .gate-card.shake { animation:gateShake .3s; }
+  @keyframes gateShake { 0%,100%{transform:translateX(0);} 25%{transform:translateX(-8px);} 75%{transform:translateX(8px);} }
+  .gate-icon { width:48px; height:48px; border-radius:12px; background:rgba(255,100,65,.12);
+               display:flex; align-items:center; justify-content:center; margin-bottom:1.1rem; }
+  .gate-icon svg { width:24px; height:24px; color:var(--orange); }
+  .gate-icon svg * { fill:currentColor !important; }
+  .gate-title { font-size:1.15rem; font-weight:700; color:var(--dark-gray); margin-bottom:.4rem; }
+  .gate-sub { font-size:.82rem; color:var(--medium-gray); line-height:1.55; margin-bottom:1.4rem; }
+  .gate-sub strong { color:var(--dark-gray); }
+  .gate-input { width:100%; padding:.75rem .9rem; border:1.5px solid var(--light-gray); border-radius:8px;
+                font-size:.9rem; font-family:inherit; color:var(--dark-gray); background:var(--light-gray);
+                outline:none; transition:border-color .15s; }
+  .gate-input:focus { border-color:var(--orange); background:var(--white); }
+  .gate-error { display:none; font-size:.76rem; color:#d64545; margin-top:.6rem; font-weight:700; }
+  .gate-error.show { display:block; }
+  .gate-actions { display:flex; gap:.7rem; margin-top:1.5rem; }
+  .gate-btn { flex:1; padding:.7rem 1rem; border-radius:8px; font-size:.82rem; font-weight:700;
+              font-family:inherit; cursor:pointer; border:none; transition:all .15s; }
+  .gate-btn-cancel { background:var(--light-gray); color:var(--medium-gray); }
+  .gate-btn-cancel:hover { background:#dfe5ee; }
+  .gate-btn-submit { background:var(--orange); color:#fff; }
+  .gate-btn-submit:hover { background:#e5522f; }
+
+  /* ── TOOLS PANELS ── */
+  .section-panel { display:none; position:fixed; inset:0; z-index:200; background:rgba(10,15,20,.92);
                    backdrop-filter:blur(8px); flex-direction:column; align-items:center;
                    justify-content:center; padding:2rem; animation:fadeInPanel .25s ease; }
   .section-panel.open { display:flex; }
   @keyframes fadeInPanel { from{opacity:0;transform:translateY(16px);} to{opacity:1;transform:translateY(0);} }
-  .panel-header { display:flex; align-items:center; justify-content:space-between; width:100%;
-                  max-width:900px; margin-bottom:2rem; }
-  .panel-title { font-size:1.6rem; font-weight:300; color:#fff; letter-spacing:.02em; }
-  .panel-title strong { color:var(--orange); font-weight:700; }
+  .panel-header { display:flex; align-items:center; gap:1rem; width:100%; max-width:920px; margin-bottom:2rem; }
+  .panel-header-icon { width:44px; height:44px; border-radius:12px; background:rgba(255,100,65,.14);
+                        display:flex; align-items:center; justify-content:center; flex-shrink:0; }
+  .panel-header-icon svg { width:26px; height:26px; }
+  .panel-header-text { flex:1 1 auto; }
+  .panel-title { font-size:1.5rem; font-weight:300; color:#fff; letter-spacing:.01em; }
+  .panel-title strong { font-weight:700; color:var(--orange); }
+  .panel-subtitle { font-size:.78rem; color:rgba(255,255,255,.45); margin-top:.2rem; }
   .panel-close { background:rgba(255,255,255,.08); border:1px solid rgba(255,255,255,.15);
-                 color:rgba(255,255,255,.7); font-size:.8rem; font-weight:600; padding:.4rem 1rem;
-                 border-radius:6px; cursor:pointer; transition:all .2s; font-family:inherit; }
+                 color:rgba(255,255,255,.7); font-size:.8rem; font-weight:700; padding:.4rem 1rem;
+                 border-radius:6px; cursor:pointer; transition:all .2s; font-family:inherit; flex-shrink:0; }
   .panel-close:hover { background:var(--orange); border-color:var(--orange); color:#fff; }
   .panel-cards { display:flex; gap:1.5rem; flex-wrap:wrap; justify-content:center;
-                 max-width:900px; width:100%; max-height:70vh; overflow-y:auto; }
+                 max-width:920px; width:100%; max-height:66vh; overflow-y:auto; }
   .panel-card { background:rgba(255,255,255,.04); border:1px solid rgba(255,255,255,.1);
                 border-radius:14px; padding:1.8rem; width:260px; cursor:pointer; transition:all .2s;
                 display:flex; flex-direction:column; gap:.8rem; position:relative; overflow:hidden; }
@@ -181,165 +169,157 @@
                       padding:3px 8px; border-radius:8px; background:#dcfce7; color:#16a34a;
                       letter-spacing:.04em; text-transform:uppercase; }
   .panel-card-badge.soon { background:rgba(255,255,255,.1); color:var(--neutral-gray); }
-  .panel-card-badge.maintenance { background:rgba(240,190,120,.16); color:#F0BE78;
-                                  display:inline-flex; align-items:center; gap:4px;
-                                  text-transform:none; letter-spacing:0; font-size:.6rem; }
-  .panel-card-badge.maintenance svg { width:11px; height:11px; flex:none; }
-  .panel-card.maintenance { border-color:rgba(240,190,120,.28); }
-  .panel-card.maintenance::before { background:#F0BE78 !important; }
-  .panel-card.maintenance:hover { border-color:rgba(240,190,120,.55); }
   .panel-card-title { font-size:1rem; font-weight:700; color:#fff; line-height:1.3; }
   .panel-card-desc { font-size:.8rem; color:rgba(255,255,255,.5); line-height:1.5; }
   .panel-card-footer { font-size:.72rem; color:rgba(255,100,65,.8); margin-top:auto; padding-top:.5rem;
                        border-top:1px solid rgba(255,255,255,.06); display:flex; justify-content:space-between; }
-  .panel-empty { color:rgba(255,255,255,.4); font-size:.85rem; }
+  .panel-empty { color:rgba(255,255,255,.4); font-size:.85rem; max-width:420px; text-align:center; line-height:1.6; }
   body.panel-open { overflow:hidden; }
-
-  @media (max-width:1000px){ .hero-content{ grid-template-columns:minmax(0,1fr) 440px; gap:1.75rem; }
-                             .vessel-module{ height:480px; } }
-  @media (max-width:900px){  .hero-content{ grid-template-columns:1fr; }
-                             .vessel-module{ min-width:0; height:440px; }
-                             body{ overflow:auto; height:auto; } }
-  @media (max-width:720px){  body > header{padding:0 1rem;} body > nav{padding:0 1rem;} }
 </style>
 </head>
 <body>
 
+<!-- ── Sprite: brand pictograms used across this page (APM Terminals brand kit) ── -->
+<svg style="display:none" aria-hidden="true">
+<symbol id="ico-strategy" viewBox="0 0 269.5 141.5"><path fill="#ff6441" d="M157.164 110.02H63.303V36.282l41.215-.04.002 2-39.217.038v69.74h91.861zm14.54-47.542h-2V38.166l-57.562.06-.002-2 59.564-.062z"/><path fill="#ff6441" d="M64.19 99.477h92.474v1H64.19zm40.38 25.143 5.869-16.123 1.88.684-5.87 16.122zm17.833-15.458 1.893-.645 5.497 16.122-1.893.645z"/><path fill="#ff6441" d="M96.496 124.053h42.014v2H96.496zM86.157 95.93a5.849 5.849 0 1 1 5.849-5.848 5.855 5.855 0 0 1-5.849 5.848m0-9.697a3.849 3.849 0 1 0 3.849 3.849 3.853 3.853 0 0 0-3.849-3.849m22.187-13.026a5.849 5.849 0 1 1 5.849-5.849 5.855 5.855 0 0 1-5.849 5.849m0-9.697a3.849 3.849 0 1 0 3.849 3.848 3.853 3.853 0 0 0-3.849-3.848m27.151 18.839a5.849 5.849 0 1 1 5.849-5.849 5.855 5.855 0 0 1-5.85 5.849zm0-9.697a3.849 3.849 0 1 0 3.849 3.848 3.853 3.853 0 0 0-3.85-3.848z"/><path fill="#ff6441" d="m88.537 86.48-.707-.706.353-.354c1.734-1.734 16.434-14.405 17.06-14.944l.378-.326.653.757-.379.327c-.153.131-15.297 13.186-17.005 14.893zm24.121-16.899.277-.96 18.241 5.249-.276.96zm27.002 6.732 16.746-9.544.495.87-16.745 9.542zM85.149 79.58a5.849 5.849 0 1 1 5.849-5.848 5.855 5.855 0 0 1-5.85 5.848zm0-9.697a3.849 3.849 0 1 0 3.849 3.849 3.853 3.853 0 0 0-3.85-3.849zm23.183-26.629a5.849 5.849 0 1 1 5.848-5.85 5.855 5.855 0 0 1-5.848 5.85m0-9.698a3.849 3.849 0 1 0 3.848 3.849 3.853 3.853 0 0 0-3.848-3.849m53.491-2.064a5.849 5.849 0 1 1 5.848-5.848 5.855 5.855 0 0 1-5.848 5.848m0-9.697a3.849 3.849 0 1 0 3.848 3.849 3.853 3.853 0 0 0-3.848-3.849m-26.341 30.601a5.849 5.849 0 1 1 5.849-5.849 5.855 5.855 0 0 1-5.849 5.849m0-9.698a3.849 3.849 0 1 0 3.849 3.849 3.853 3.853 0 0 0-3.849-3.849"/><path fill="#ff6441" d="m112.646 39.627.277-.96 18.242 5.249-.277.96zm26.978 6.93 18.41-18.965.718.696-18.41 18.966zM86.678 69.58l18.803-28.371.833.552-18.802 28.372zm112.846 9.016h-44.346V60.919h44.346zm-42.346-2h40.346V62.919h-40.346z"/><path fill="#ff6441" d="M160.017 68.757h17.76v2h-17.76zm23.848 0h4.212v2h-4.212zm6.608 0h4.212v2h-4.212zm9.051 25.543h-44.346V76.625h44.346zm-42.346-2h40.346V78.625h-40.346z"/><path fill="#ff6441" d="M160.017 84.462h17.76v2h-17.76zm23.848 0h4.212v2h-4.212zm6.608 0h4.212v2h-4.212zm9.051 25.544h-44.346V92.329h44.346zm-42.346-2h40.346V94.329h-40.346z"/><path fill="#ff6441" d="M160.017 100.167h17.76v2h-17.76zm23.848 0h4.212v2h-4.212zm6.608 0h4.212v2h-4.212zm9.051 25.543h-44.346v-17.676h44.346zm-42.346-2h40.346v-13.676h-40.346z"/></symbol>
+<symbol id="ico-vessel" viewBox="0 0 270 140"><path fill="#ff6441" d="M109.5 94.5h81v1h-81zm-70.6 8h25.3v1H38.9zm175 1h25.3v1h-25.3zm-200-10h25.3v1H13.9zM265 81h-44.6v-2H265zM47.6 81H5v-2h42.6zM85 49h-7V37.5c0-1.9 1.6-3.5 3.5-3.5s3.5 1.6 3.5 3.5zm-5-2h3v-9.5c0-.8-.7-1.5-1.5-1.5s-1.5.7-1.5 1.5z"/><path fill="#ff6441" d="M92 42.4v5.2h-2v-5.2h-6v-2h14v2zM131 54h-26V44h26zm-24-2h22v-6h-22zm52 2h-26V44h26zm-24-2h22v-6h-22zm52 2h-26V44h26zm-24-2h22v-6h-22zm-32 13h-26V55h26zm-24-2h22v-6h-22zm52 2h-26V55h26zm-24-2h22v-6h-22zm52 2h-26V55h26zm-24-2h22v-6h-22zm-32 13h-26V66h26zm-24-2h22v-6h-22zm52 2h-26V66h26zm-24-2h22v-6h-22zm38.5 2H161V66h26v8h-2v-6h-22v6h10.5z"/><path fill="#ff6441" d="M217.9 90H48.6L45 74h8V62h19.5l5.8 12h100.5c9.2 0 17.6-5.8 20.9-14.4l.3-.6h18.7l.3.5c4.9 8 5.3 17.9 1 26.3zM50.2 88h166.4l1.6-3.2c3.9-7.6 3.6-16.5-.7-23.8h-16.2c-3.8 9-12.7 15-22.5 15H77.1l-5.8-12H55v12h-7.5z"/><path fill="#ff6441" d="M102 76H77l-1-2.3V47h26zm-23.7-2H100V49H78v24.3z"/><path fill="#ff6441" d="m76.779 61.74 15.964-9.15.497.867-15.964 9.15z"/><g fill="#ff6441"><path fill-rule="evenodd" d="m77 67 12.6-7.2" clip-rule="evenodd"/><path d="m76.732 66.602 12.667-7.26.497.867-12.667 7.26z"/></g></symbol>
+<symbol id="ico-yard" viewBox="0 0 270 140"><path fill="#ff6441" d="M112.4 73.7H74V49.9h38.4zm-36.4-2h34.4V51.9H76z"/><path fill="#ff6441" d="M83.6 55.8h1v11.9h-1zm9.1 0h1v11.9h-1zm9.1 0h1v11.9h-1zm10.6 45.1H74V77.1h38.4zm-36.4-2h34.4V79.1H76z"/><path fill="#ff6441" d="M83.6 83.1h1V95h-1zm9.1 0h1V95h-1zm9.1 0h1V95h-1zm52.4-36.7h-38.4V22.6h38.4zm-36.4-2h34.4V24.6h-34.4z"/><path fill="#ff6441" d="M125.4 28.5h1v11.9h-1zm9.1 0h1v11.9h-1zm9.1 0h1v11.9h-1zm10.6 45.2h-38.4V49.9h38.4zm-36.4-2h34.4V51.9h-34.4z"/><path fill="#ff6441" d="M125.4 55.8h1v11.9h-1zm9.1 0h1v11.9h-1zm9.1 0h1v11.9h-1zm10.6 45.1h-38.4V77.1h38.4zm-36.4-2h34.4V79.1h-34.4z"/><path fill="#ff6441" d="M125.4 83.1h1V95h-1zm9.1 0h1V95h-1zm9.1 0h1V95h-1zM196 46.4h-38.4V22.6H196zm-36.4-2H194V24.6h-34.4z"/><path fill="#ff6441" d="M167.2 28.5h1v11.9h-1zm9.1 0h1v11.9h-1zm9.1 0h1v11.9h-1zM196 73.7h-38.4V49.9H196zm-36.4-2H194V51.9h-34.4z"/><path fill="#ff6441" d="M167.2 55.8h1v11.9h-1zm9.1 0h1v11.9h-1zm9.1 0h1v11.9h-1zm10.6 45.1h-38.4V77.1H196zm-36.4-2H194V79.1h-34.4z"/><path fill="#ff6441" d="M167.2 83.1h1V95h-1zm9.1 0h1V95h-1zm9.1 0h1V95h-1zM34 99.4h202v2H34zm42.7 11.1H96v1H76.7zm29.1 6H137v1h-31.2z"/></symbol>
+<symbol id="ico-gate" viewBox="0 0 270 140"><path fill="#ff6441" d="M137.9 27.2h44v1h-44zM25 108.6h220v2H25zm100.3-18.2h-3.6V58.5h2v29.9h1.6z"/><path fill="#ff6441" d="M123.7 52.4h-2V20.6h67.1v13.3h-2V22.6h-63.1zm65.1 38h-4.5v-2h2.5V40.1h2z"/><path fill="#ff6441" d="M167 104.4h-23.6l-2.7-2.6h-15.5V57.7h2v42.1h14.4l2.6 2.6h22.1l3.6-2.6h13.4V41h2v60.8h-14.8zm-39.8-52.9h-2V33.8h60.1v1.9h-1v.1h-57.1z"/><path fill="#ff6441" d="M150 92.4h11.4v1H150zm-42.2 18.2H86.5V47h21.3v8.9h-2V49H88.5v59.6h17.3V63h2z"/><path fill="#ff6441" d="m97 66-2-7.4 110.5-30.3 2 7.3zm.5-6 .9 3.5L205 34.2l-.9-3.5z"/><path fill="#ff6441" d="m99.514 58.835.397-.918 8.263 3.565-.396.918zm13.506-3.784.396-.918 8.263 3.565-.396.918zm13.558-3.645.395-.919 8.267 3.556-.395.918zm13.605-3.745.396-.918 8.264 3.564-.396.918zm13.61-3.74.397-.918 8.263 3.565-.396.918zm13.557-3.646.395-.918 8.268 3.556-.395.918zm13.522-3.787.396-.918 8.263 3.565-.396.918zm13.601-3.739.396-.918 8.264 3.565-.396.918zM91.9 101.5h10.6v2H91.9zm-18 8.6h-8V56.3h8zm-7-1h6V57.3h-6z"/><path fill="#ff6441" d="M80.9 110.1h-8V56.3h8zm-7-1h6V57.3h-6z"/><path fill="#ff6441" d="M79.9 56.8h1v52.8h-1zm6.6 8.8h2v44h-2z"/><path fill="#ff6441" d="M63.7 55.8h23.8v2H63.7zm75.8 39.8h-14.3V84.8h6.7l7.6 8.5zm-12.3-2h9.9l-6.1-6.8h-3.8zm58.1 2H171v-2.3l7.6-8.5h6.7zm-11.9-2h9.9v-6.8h-3.8zm-47.2-28.1h58.1v2h-58.1zm11.6 45.1H127V99.8h10.8zm-8.8-2h6.8v-6.8H129zm54.5 2h-10.8V99.8h10.8zm-8.8-2h6.8v-6.8h-6.8z"/></symbol>
+<symbol id="ico-rail" viewBox="0 0 270 140"><path fill="#ff6441" d="M158.6 81.4c0-3.4-2.7-6.1-6.1-6.1s-6.1 2.7-6.1 6.1c-.1 3.4 2.7 6.2 6.1 6.2s6.1-2.7 6.1-6.2m-10.2 0c0-2.2 1.8-4.1 4.1-4.1s4.1 1.9 4.1 4.2-1.8 4.1-4.1 4.1-4.1-1.9-4.1-4.2m-30.9-6.1c-3.3 0-6.1 2.7-6.1 6.1-.1 3.4 2.7 6.2 6.1 6.2s6.2-2.7 6.1-6.2c0-3.4-2.7-6.1-6.1-6.1m0 10.3c-2.3 0-4.1-1.9-4.1-4.2s1.8-4.1 4.1-4.1 4.2 1.9 4.1 4.2c0 2.3-1.8 4.1-4.1 4.1"/><path fill="#ff6441" d="M173 109.2h-11.6l-3.6-5.7h6.6v-2h-7.8l-4-6.5H167V44.8c0-9.7-6-18.4-15.1-21.7h-.4V20h-32.8v3h-.4c-9 3.5-15.1 12.2-15.1 21.8V95h15.3l-4.3 6.5h-8.6v2h7.3l-3.8 5.7h-12v2h10.7l-7 10.6 1.7 1.1 7.7-11.7h50.2l7.3 11.7 1.7-1-6.7-10.7h10.4v-2ZM120.6 22h28.8v4.1h-28.8zm-15.4 71V44.8c0-8.7 5.3-16.5 13.4-19.6v2.9h32.8v-3c8 3.1 13.5 11 13.5 19.7V93zm15.6 2h29.4l4.1 6.5h-37.7l4.3-6.5Zm-9.4 14.2 3.8-5.7h40.3l3.6 5.7h-47.6Z"/><path fill="#ff6441" d="M158.6 39.5h-47.2v26.7h47.2zm-2 24.7h-43.2V60l12.3-7-.5-.9-11.8 6.7v-3.7l15.7-9-.5-.9-15.2 8.7V41.4h43.2v22.7Z"/></symbol>
+<symbol id="ico-vas" viewBox="0 0 270 140"><path fill="#ff6441" d="m199.7 72.6-.4-2-31.9 5.6-11.2-53.9-1.9.4 11.5 55.8z"/><path fill="#ff6441" d="M146.5 86c2.4-1.3 4-3.8 4.2-6.8H161l-9.5-48.6-1-4.7h-31.2v22.7H68v30.6h19.1c.6 2.8 2.3 5.2 4.5 6.8H4v2h262v-2zm-3.9-1c-3.4 0-6.2-2.8-6.2-6.2s2.8-6.1 6.2-6.1 6.1 2.8 6.1 6.1-2.7 6.2-6.1 6.2m-21.3-57.1h27.6l.3 1.7v.5h-28v-2.2Zm0 18.3 9.9-5.7-.5-.9-9.4 5.4v-2.9l12.7-7.3-.5-.9-12.2 7V32h28.4l5.3 26.6h-33.6V46.1ZM70 77.2V55h44.4v-1H70v-3.4h49.3v10.1h36l3.3 16.5h-8.1c-.7-3.7-4-6.5-7.9-6.5s-7.3 2.8-8 6.5h-25.5v-.3c0-6.1-5-11.1-11.1-11.1s-11.1 5-11.1 11.1v.3zm18.9-.2c0-5 4.1-9.1 9.1-9.1s9.1 4 9.1 9.1-3.4 8.4-7.8 9h-2.5c-4.4-.6-7.8-4.4-7.8-9Zm20 2.2h25.6c.1 2.9 1.8 5.5 4.3 6.8h-34.4c2.3-1.6 3.9-4 4.5-6.8"/><path fill="#ff6441" d="m167.1 52.7 3.2 18.3 26.5-4.7-2.9-16.4-3.2-18.3-26.5 4.7zm24.9-2.4 2.5 14.3-22.6 4-2.5-14.3 13.1-2.3 9.4-1.6Zm-2.9-16.4 2.5 14.4-22.6 4-2.5-14.4z"/><path fill="#ff6441" d="M174 55.8h1v9.1h-1z" transform="rotate(-10 174.409 60.177)"/><path fill="#ff6441" d="M181.4 54.5h1v9.1h-1z" transform="rotate(-10 181.988 59.113)"/><path fill="#ff6441" d="M188.8 53.2h1v9.1h-1z" transform="rotate(-10 189.568 58.048)"/><path fill="#ff6441" d="M171.2 39.4h1v9.1h-1z" transform="rotate(-10 171.808 43.825)"/><path fill="#ff6441" d="M178.5 38.1h1v9.1h-1z" transform="rotate(-9.9 180.078 42.933)"/><path fill="#ff6441" d="M185.9 36.8h1v9.1h-1z" transform="rotate(-10 186.446 41.075)"/><path fill="#ff6441" d="M78 96.2h21.5v1H78zM106.3 102.9h34.6v1h-34.6z"/></symbol>
+<symbol id="ico-lock" viewBox="0 0 24 24"><path d="M10 2h4a1 1 0 0 1 1 1v3H9V3a1 1 0 0 1 1-1m6 4V3a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v3H4a1 1 0 0 0-1 1v13a1 1 0 0 0 1 1h16a1 1 0 0 0 1-1V7a1 1 0 0 0-1-1zm-4 4.5a1.5 1.5 0 1 0 0 3 1.5 1.5 0 0 0 0-3M9.5 12a2.5 2.5 0 1 1 3 2.45V18h-1v-3.55a2.5 2.5 0 0 1-2-2.45"/></symbol>
+</svg>
+
 <header>
   <div class="header-left">
     <a href="#" class="brand-mark">
-      <div class="bridge-brand">
-        <span class="bridge-name">APM Terminals <span class="brand-ai">Mobile</span></span>
-        <span class="bridge-sub">Operational Excellence Hub · Alabama</span>
-      </div>
+      <span class="brand-logo">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 638.7 229.4">
+          <g fill="#FF6441">
+            <polygon points="157.7,102.2 157.7,93.9 220.1,65.3 220.1,76.3"/>
+            <polygon points="91.8,112.6 91.8,118.4 188.6,69.8 188.6,59.4"/>
+            <polygon points="68.7,139 122.1,116.9 122.1,110.2 68.7,134.6"/>
+          </g>
+          <path fill="#FFFFFF" d="M477.8,108.5L464.9,138h7.5l2.8-6.4h14.9l2.8,6.4h7.9L488,108.5H477.8z M477.7,125.9l5-11.4l5,11.4H477.7z
+            M381.9,138h5.7l7.9-16.6V138h7.1v-29.5h-8.4l-9.4,21.4l-9.4-21.4h-8.7V138h7.1v-16.6L381.9,138z M214.9,138h5.7l7.9-16.6V138h7.1
+            v-29.5h-8.4l-9.4,21.4l-9.4-21.4h-8.7V138h7.1v-16.6L214.9,138z M322.6,108.5v6.1h-20.5v6h17.1v5.9l-17.1,0v5.5h20.4v6.1h-28v-29.5
+            H322.6z M136.8,108.5L123.9,138h7.5l2.8-6.4h14.9l2.8,6.4h7.9L147,108.5H136.8z M136.7,125.9l5-11.4l5,11.4H136.7z M186.5,121.9
+            h-14.4v-7.6h14.4V121.9z M164.2,108.5l0,29.5h7.7v-10h17.3c2.2,0,4-1.3,4.2-4.2v-11c0-2.4-2.1-4.3-4.6-4.3H164.2z M513.5,108.5h-7.7
+            V138h26.5v-6.1h-18.8V108.5z M427.5,108.5V138h7.6v-20.3l16.3,20.3h8.4v-29.5h-7.7v20.3l-15.9-20.3H427.5z M411.3,138h7.4v-14.7
+            v-14.7h-7.4V138z M256.6,108.5v6.3h11.9V138h7.9v-23.2h11.9v-6.3H256.6z M542,108.5c-2.2-0.1-4.3,1.9-4.3,4v9.6
+            c0,2.5,2.1,4.3,4.2,4.3H559v5.7h-13.6v-2.4h-8v4.1c0,2.2,2,4.3,4.3,4.3h20.8c2.1,0,4.2-1.6,4.2-4.4v-9.2c-0.1-2.7-2.1-4.3-4.3-4.4
+            l-16.8,0v-5.5h13.2v1.9h7.5v-3.9c0.1-1.9-1.8-4.1-4.3-4H542z M329.6,108.5V138h7.5v-10.8h8.6l5.8,10.8h8l-6-10.8h0.7
+            c2.3-0.2,4-1.9,4-4.4v-10c0-2.4-2.1-4.3-4.6-4.3H329.6z M351.5,121.3h-14.5v-6.7h14.5V121.3z"/>
+        </svg>
+      </span>
+      <span class="brand-divider"></span>
+      <span class="bridge-brand">
+        <span class="bridge-name">SMART <span class="brand-ai">Hub</span></span>
+        <span class="bridge-sub">APM Terminals Mobile · Operational Intelligence Hub</span>
+      </span>
     </a>
   </div>
   <div class="header-right">
-    <div class="live-badge" title="Portal Operativo Activo">
-      <div class="live-dot"></div> LIVE
-    </div>
     <div class="user-box">
       <span class="user-name">Mobile Team</span>
     </div>
   </div>
 </header>
 
-<nav id="nav"></nav>
-
-<div class="hero">
+<main class="hero">
   <div class="hero-grid"></div>
   <div class="hero-glow-left"></div>
   <div class="hero-glow-right"></div>
 
-  <div class="hero-content">
-    <div>
-      <div class="hero-eyebrow" id="hero-eyebrow"></div>
-      <div class="hero-logo">
-        <span class="hero-logo-word">APMT <span class="brand-ai">Mobile</span></span>
-      </div>
-      <div class="hero-title"><strong id="hero-title"></strong></div>
-      <div class="hero-sub" id="hero-sub"></div>
-      <div class="hero-stats" id="hero-stats"></div>
-    </div>
+  <div class="hero-inner">
+    <div class="hero-eyebrow">APM Terminals Mobile · Alabama</div>
+    <div class="hero-title">Elige tu <strong>área operativa</strong></div>
+    <div class="hero-sub">El SMART Hub reúne las herramientas, calculadoras y reportes construidos para las operaciones de APM Terminals Mobile. Cada gaveta agrupa las herramientas de su área — selecciona la tuya para continuar.</div>
 
-    <div class="vessel-module">
-      <div class="vessel-module-header">
-        <span class="vessel-module-title" id="vessel-title"></span>
-        <span class="vessel-module-live"><span class="vessel-module-live-dot"></span> Live</span>
-      </div>
-      <div class="vessel-list" id="vessel-list"></div>
-      <div class="vessel-module-foot">Ver todos →</div>
-    </div>
+    <div class="gaveta-grid" id="gaveta-grid"></div>
+    <div class="gaveta-hint">¿No tienes la contraseña de tu gaveta? Solicítala a tu supervisor de Operations.</div>
   </div>
-
-  <div class="hero-kpi-bar" id="kpi-bar"></div>
-</div>
+</main>
 
 <footer>
-  <span><span class="footer-brand">APM Terminals <span class="brand-ai">Mobile</span></span> · Continuous Improvement & Operations Strategy</span>
+  <span><span class="footer-brand">APM Terminals <span class="brand-ai">Mobile</span></span> · APMT Business System (ABS) &amp; Operations Strategy</span>
   <span>APM Terminals Mobile · Classification: Internal</span>
-  <span>Lifting Global Trade</span>
+  <span class="footer-tagline">Lifting Global Trade</span>
 </footer>
+
+<!-- ── Password gate modal ── -->
+<div class="gate-modal" id="gate-modal">
+  <div class="gate-card" id="gate-card">
+    <div class="gate-icon"><svg><use href="#ico-lock"/></svg></div>
+    <div class="gate-title">Acceso protegido</div>
+    <div class="gate-sub">Ingresa la contraseña de la gaveta <strong id="gate-target-name"></strong> para continuar.</div>
+    <form id="gate-form">
+      <input class="gate-input" type="password" id="gate-input" placeholder="Contraseña" autocomplete="off" required>
+      <div class="gate-error" id="gate-error">Contraseña incorrecta. Verifica con tu supervisor de Operations.</div>
+      <div class="gate-actions">
+        <button type="button" class="gate-btn gate-btn-cancel" id="gate-cancel">Cancelar</button>
+        <button type="submit" class="gate-btn gate-btn-submit">Ingresar →</button>
+      </div>
+    </form>
+  </div>
+</div>
 
 <div id="paneles"></div>
 
 <script>
 /* ══════════════════════════════════════════════════════════════════════════
-   DATOS ADAPTADOS PARA APM TERMINALS MOBILE
+   GAVETAS — áreas operativas de APM Terminals Mobile
    ══════════════════════════════════════════════════════════════════════════ */
 
-const SECCIONES = [
-  { key:'overview',         label:'Overview',             title:null, panel:false, active:true },
-  { key:'ai-agents',        label:'AI Agents',            title:'AI <strong>Agents</strong>' },
-  { key:'decision-engines', label:'Decision Engines',     title:'Decision <strong>Engines</strong>' },
-  { key:'indicators',       label:'Indicators',           title:'Indicators' },
-  { key:'yard',             label:'Yard Intelligence',    title:'Yard <strong>Intelligence</strong>' },
-  { key:'vessel',           label:'Vessel Intelligence',  title:'Vessel <strong>Intelligence</strong>' },
-  { key:'projections',      label:'Projections',          title:'<strong>Projections</strong>' },
-  { key:'reporting',        label:'Reporting Tools',      title:'Reporting <strong>Tools</strong>' },
+const GAVETAS = [
+  { key:'Strategy', icon:'ico-strategy', desc:'Planeación operativa, metas y reportes del APMT Business System (ABS).' },
+  { key:'Vessel',   icon:'ico-vessel',   desc:'Buques en muelle, planificación de estiba y productividad de grúas.' },
+  { key:'Yard',     icon:'ico-yard',     desc:'Estado del patio, flujo de tractores y desempeño de operadores.' },
+  { key:'Gate',     icon:'ico-gate',     desc:'Citas, procesos de ingreso y flujo de camiones en puerta.' },
+  { key:'Rail',     icon:'ico-rail',     desc:'Programación y movimientos de la operación ferroviaria.' },
+  { key:'VAS',      icon:'ico-vas',      desc:'Servicios de valor agregado — stuffing, stripping y más.' },
 ];
 
 const MODULOS = [
-  { section:'vessel', order:10, status:'live', icon:'🚢',
+  { section:'Vessel', order:10, status:'live', icon:'🚢',
     name:'Vessels at Berth', tag:'Vessel · Ops', href:'#',
     description:'Estado de buques en muelle — moves pendientes, completados y CMPH en vivo.' },
-
-  { section:'vessel', order:40, status:'live', icon:'📊',
+  { section:'Vessel', order:20, status:'live', icon:'📊',
     name:'Planning Quality Calculator', tag:'Planning · XPS', href:'#',
     description:'Métricas de planificación — rehandles, clashes, dual cycle y optimización de bahías.' },
-
-  { section:'yard', order:50, status:'live', icon:'🗺️',
-    name:'Yard Operations Map', tag:'Yard · Live operations', href:'#',
-    description:'Visualización del estado del patio, flujo de tractores y zonas de congestión.' },
-
-  { section:'yard', order:55, status:'live', icon:'🏆',
-    name:'Operator Performance', tag:'Yard · Operator ranking', href:'#',
-    description:'Ranking de rendimiento de operadores contra metas operacionales.' },
-
-  { section:'projections', order:5, status:'live', icon:'🎯',
-    name:'Shift Productivity Targets', tag:'CMPH · Meta Semanal', href:'#',
-    description:'Productividad requerida por turno para cumplir objetivos semanales.' },
-
-  { section:'ai-agents', order:20, status:'live', icon:'🤖', external:true,
+  { section:'Vessel', order:30, status:'live', icon:'🤖', external:true,
     name:'Vessel AI Assistant', tag:'AI · Vessel Ops', href:'#',
     description:'Asistente inteligente para diagnóstico ejecutivo de buques en muelle.' },
 
-  { section:'decision-engines', order:30, status:'live', icon:'🏗️', external:true,
+  { section:'Yard', order:10, status:'live', icon:'🗺️',
+    name:'Yard Operations Map', tag:'Yard · Live operations', href:'#',
+    description:'Visualización del estado del patio, flujo de tractores y zonas de congestión.' },
+  { section:'Yard', order:20, status:'live', icon:'🏆',
+    name:'Operator Performance', tag:'Yard · Operator ranking', href:'#',
+    description:'Ranking de rendimiento de operadores contra metas operacionales.' },
+  { section:'Yard', order:30, status:'live', icon:'🏗️', external:true,
     name:'Work Instructions Simulator', tag:'Yard & Crane Ops', href:'#',
     description:'Simulador de grúas activas con prevención de clashes en patio.' },
 
-  { section:'reporting', order:60, status:'live', icon:'📋', external:true,
-    name:'Reporte Ejecutivo de Turno', tag:'Reporting · Turnos', href:'#',
+  { section:'Strategy', order:10, status:'live', icon:'🎯',
+    name:'Shift Productivity Targets', tag:'ABS · Meta Semanal', href:'#',
+    description:'Productividad requerida por turno para cumplir objetivos semanales.' },
+  { section:'Strategy', order:20, status:'live', icon:'📋', external:true,
+    name:'Reporte Ejecutivo de Turno', tag:'ABS · Reporting', href:'#',
     description:'Resumen operacional por turno — KPIs clave y análisis del handover.' },
-
-  { section:'reporting', order:65, status:'live', icon:'🔌',
-    name:'Connectivity Dashboard', tag:'Reporting · Conectividad', href:'#',
+  { section:'Strategy', order:30, status:'live', icon:'🔌',
+    name:'Connectivity Dashboard', tag:'ABS · Conectividad', href:'#',
     description:'Análisis de conectividad de transbordos e importaciones.' },
 ];
 
-const HERO = {
-  eyebrow: 'APM Terminals Mobile · Operational Intelligence Hub',
-  title:   'Operational Strategy',
-  sub:     'Plataforma centralizada para la integración de herramientas analíticas, modelos de decisión e IA desarrollados para optimizar las operaciones de APM Terminals Mobile.',
-  subAccent: 'Lean Operations · SQDC Excellence · AI Integration',
-  stats: [
-    { accent:'2',  rest:' min', label:'Frecuencia Datos' },
-    { accent:'8',  rest:'',     label:'Módulos Activos' },
-    { accent:'3',  rest:'',     label:'En Desarrollo' },
-    { accent:'0',  rest:'',     label:'Licencias Ext.' },
-  ],
-  kpis: [
-    { label:'Vessels at Berth',val:'3',     unit:'active', trend:'Operación normal',   cls:'trend-up' },
-    { label:'Moves Pending',   val:'2,450', unit:'mvs',    trend:'Turno actual',       cls:'trend-neutral' },
-    { label:'Avg CMPH',        val:'31.2',  unit:'mph',    trend:'+2.1 vs Meta',       cls:'trend-up' },
-    { label:'Últ. Actualización', val:'13:45', unit:'',    trend:'✓ Sistema Ok',       cls:'trend-up' },
-  ],
-  vesselTitle: 'Vessels at Berth · Port of Mobile',
-  vessels: [
-    { name:'ZIM ALABAMA',       berth:'Muelle Principal · ZIM', progress:82, pending:210 },
-    { name:'MAERSK MEMPHIS',    berth:'Muelle Sur · Maersk',    progress:54, pending:640 },
-    { name:'MSC FLORENCE',      berth:'Muelle Norte · MSC',    progress:30, pending:1100 },
-  ],
+/* SHA-256 de "ABS.<Gaveta>" — el gate compara contra estos hashes, nunca contra texto plano. */
+const GAVETA_HASHES = {
+  Strategy: 'f6d0d6562137dff40cb0d0aa415d3f2a435726d44d82f14185d3a25c0c13f218',
+  Vessel:   '778b07e4f38bfba5cbab8f5c9c8d3e8b1b35594d816246803bb5c57ec5891118',
+  Yard:     'e3af8a3b4b5279e28fc1115d0a0a05dbc01c75119fb2b9b519a544503f7f45d6',
+  Gate:     'aceb9eb09a43f366a05fcec07d1a5d0242e9dc9d5bc8c73dfc14d183f65bca59',
+  Rail:     '2729a548439c61cf1e9427d9125e623f707e2ca26eb543372de6900250533f53',
+  VAS:      'c666e696b5ce5654af317848a123b8b07e736c65285abe5161f2712eb195221f',
 };
 
 /* ══════════════════════════════════════════════════════════════════════════
@@ -348,22 +328,22 @@ const HERO = {
 
 const esc = s => String(s ?? '').replace(/[&<>"]/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
 
-document.getElementById('nav').innerHTML = SECCIONES.map(s =>
-  s.panel === false
-    ? `<a href="#"><div class="nav-item ${s.active ? 'active' : ''}">${esc(s.label)}</div></a>`
-    : `<div class="nav-item" data-abrir="${s.key}">${esc(s.label)}</div>`
-).join('');
+document.getElementById('gaveta-grid').innerHTML = GAVETAS.map(g => `
+  <button type="button" class="gaveta-card" data-gaveta="${esc(g.key)}">
+    <div class="gaveta-icon-wrap"><svg><use href="#${esc(g.icon)}"/></svg></div>
+    <div class="gaveta-label">${esc(g.key)}</div>
+    <div class="gaveta-desc">${esc(g.desc)}</div>
+    <div class="gaveta-foot">
+      <span class="gaveta-protected"><svg><use href="#ico-lock"/></svg> Acceso protegido</span>
+      <span class="gaveta-arrow">→</span>
+    </div>
+  </button>`).join('');
 
 function tarjeta(app) {
-  const mantenimiento = app.status === 'maintenance';
-  const vivo    = app.status === 'live' || mantenimiento;
+  const vivo    = app.status === 'live';
   const enlaza  = vivo && app.href;
   const externo = enlaza && app.external;
-
-  const badge = mantenimiento
-    ? `<span class="panel-card-badge maintenance">Mantenimiento</span>`
-    : `<span class="panel-card-badge ${vivo ? '' : 'soon'}">${vivo ? 'Live' : 'Próximamente'}</span>`;
-
+  const badge = `<span class="panel-card-badge ${vivo ? '' : 'soon'}">${vivo ? 'Live' : 'Próximamente'}</span>`;
   return `
   <a class="panel-card ${vivo ? '' : 'soon'}"
      ${enlaza ? `href="${esc(app.href)}"` : ''}
@@ -379,75 +359,97 @@ function tarjeta(app) {
   </a>`;
 }
 
-document.getElementById('paneles').innerHTML = SECCIONES
-  .filter(s => s.panel !== false)
-  .map(s => {
-    const apps = MODULOS
-      .filter(m => m.section === s.key)
-      .sort((a, b) => (a.order ?? 999) - (b.order ?? 999));
-    const cards = apps.length
-      ? apps.map(tarjeta).join('')
-      : '<div class="panel-empty">Sin herramientas registradas en esta sección.</div>';
-    return `
-    <div class="section-panel" id="panel-${s.key}">
-      <div class="panel-header">
-        <div class="panel-title">${s.title}</div>
-        <button class="panel-close" type="button">✕ Cerrar</button>
+document.getElementById('paneles').innerHTML = GAVETAS.map(g => {
+  const apps = MODULOS.filter(m => m.section === g.key).sort((a, b) => (a.order ?? 999) - (b.order ?? 999));
+  const cards = apps.length
+    ? apps.map(tarjeta).join('')
+    : `<div class="panel-empty">Aún no hay herramientas registradas en la gaveta <strong>${esc(g.key)}</strong>. Nuevas herramientas se agregarán próximamente.</div>`;
+  return `
+  <div class="section-panel" id="panel-${esc(g.key)}">
+    <div class="panel-header">
+      <div class="panel-header-icon"><svg><use href="#${esc(g.icon)}"/></svg></div>
+      <div class="panel-header-text">
+        <div class="panel-title">${esc(g.key)}</div>
+        <div class="panel-subtitle">${esc(g.desc)}</div>
       </div>
-      <div class="panel-cards">${cards}</div>
-    </div>`;
-  }).join('');
+      <button class="panel-close" type="button">✕ Cerrar</button>
+    </div>
+    <div class="panel-cards">${cards}</div>
+  </div>`;
+}).join('');
 
-function abrirSeccion(key) {
-  cerrarSeccion();
+/* ── Control de acceso por gaveta ──
+   Nota: este portal es 100% estático (sin backend), por lo que esta capa de
+   contraseña es un control de acceso liviano — no protección contra un
+   atacante con acceso al código fuente del repositorio. No coloques datos
+   operativos reales o sensibles detrás de este gate. */
+
+async function sha256Hex(text) {
+  const buf = await crypto.subtle.digest('SHA-256', new TextEncoder().encode(text));
+  return Array.from(new Uint8Array(buf)).map(b => b.toString(16).padStart(2, '0')).join('');
+}
+
+function unlockedKey(key) { return 'smarthub_unlocked_' + key; }
+
+function abrirPanel(key) {
+  cerrarTodo();
   const panel = document.getElementById('panel-' + key);
   if (panel) { panel.classList.add('open'); document.body.classList.add('panel-open'); }
 }
-function cerrarSeccion() {
+function cerrarTodo() {
   document.querySelectorAll('.section-panel').forEach(p => p.classList.remove('open'));
+  document.getElementById('gate-modal').classList.remove('open');
   document.body.classList.remove('panel-open');
 }
 
-document.addEventListener('click', e => {
-  const abre = e.target.closest('[data-abrir]');
-  if (abre) { abrirSeccion(abre.dataset.abrir); return; }
-  if (e.target.closest('.panel-close')) { cerrarSeccion(); return; }
-  if (e.target.classList.contains('section-panel')) cerrarSeccion();
+let gateTarget = null;
+const gateModal  = document.getElementById('gate-modal');
+const gateCard   = document.getElementById('gate-card');
+const gateForm   = document.getElementById('gate-form');
+const gateInput  = document.getElementById('gate-input');
+const gateError  = document.getElementById('gate-error');
+const gateName   = document.getElementById('gate-target-name');
+
+function abrirGaveta(key) {
+  if (sessionStorage.getItem(unlockedKey(key)) === '1') { abrirPanel(key); return; }
+  gateTarget = key;
+  gateName.textContent = key;
+  gateInput.value = '';
+  gateError.classList.remove('show');
+  gateModal.classList.add('open');
+  document.body.classList.add('panel-open');
+  setTimeout(() => gateInput.focus(), 50);
+}
+
+gateForm.addEventListener('submit', async e => {
+  e.preventDefault();
+  if (!gateTarget) return;
+  const hash = await sha256Hex(gateInput.value);
+  if (hash === GAVETA_HASHES[gateTarget]) {
+    sessionStorage.setItem(unlockedKey(gateTarget), '1');
+    gateModal.classList.remove('open');
+    abrirPanel(gateTarget);
+  } else {
+    gateError.classList.add('show');
+    gateCard.classList.remove('shake'); void gateCard.offsetWidth; gateCard.classList.add('shake');
+    gateInput.value = '';
+    gateInput.focus();
+  }
 });
-document.addEventListener('keydown', e => { if (e.key === 'Escape') cerrarSeccion(); });
 
-document.getElementById('hero-eyebrow').textContent = HERO.eyebrow;
-document.getElementById('hero-title').textContent   = HERO.title;
-document.getElementById('hero-sub').innerHTML =
-  `${esc(HERO.sub)}<span class="accent">${esc(HERO.subAccent)}</span>`;
+document.getElementById('gate-cancel').addEventListener('click', () => {
+  gateModal.classList.remove('open');
+  document.body.classList.remove('panel-open');
+});
 
-document.getElementById('hero-stats').innerHTML = HERO.stats.map(s => `
-  <div class="hero-stat">
-    <span class="hero-stat-val"><span class="accent">${esc(s.accent)}</span>${esc(s.rest)}</span>
-    <span class="hero-stat-label">${esc(s.label)}</span>
-  </div>`).join('');
-
-document.getElementById('kpi-bar').innerHTML = HERO.kpis.map(k => `
-  <div class="hero-kpi-item">
-    <span class="hero-kpi-label">${esc(k.label)}</span>
-    <span class="hero-kpi-val">${esc(k.val)}${k.unit ? ` <span class="unit">${esc(k.unit)}</span>` : ''}</span>
-    <span class="hero-kpi-trend ${k.cls}">${esc(k.trend)}</span>
-  </div>`).join('');
-
-document.getElementById('vessel-title').textContent = HERO.vesselTitle;
-document.getElementById('vessel-list').innerHTML = HERO.vessels.map(v => `
-  <div class="vessel-row">
-    <div class="vessel-row-left">
-      <span class="vessel-name" title="${esc(v.name)}">${esc(v.name)}</span>
-      <span class="vessel-berth">${esc(v.berth)}</span>
-    </div>
-    <div class="vessel-row-right">
-      <div class="vessel-progress-track">
-        <div class="vessel-progress-fill" style="width:${Number(v.progress) || 0}%"></div>
-      </div>
-      <span class="vessel-pending">${Number(v.pending).toLocaleString()} pend.</span>
-    </div>
-  </div>`).join('');
+document.addEventListener('click', e => {
+  const card = e.target.closest('[data-gaveta]');
+  if (card) { abrirGaveta(card.dataset.gaveta); return; }
+  if (e.target.closest('.panel-close')) { cerrarTodo(); return; }
+  if (e.target === gateModal) { gateModal.classList.remove('open'); document.body.classList.remove('panel-open'); return; }
+  if (e.target.classList.contains('section-panel')) cerrarTodo();
+});
+document.addEventListener('keydown', e => { if (e.key === 'Escape') cerrarTodo(); });
 </script>
 </body>
 </html>
