@@ -15,12 +15,12 @@ Este archivo se lee automáticamente al abrir este repositorio con Claude Code. 
 
 ## Estado actual (confirmado y funcionando)
 
-- **Repositorio:** `Al3xPinz0n/Company-Projects` en GitHub — **público** (necesario para GitHub Pages gratis). El usuario pidió renombrarlo a **`smarthub`**; una vez renombrado, la URL pasa a `https://al3xpinz0n.github.io/smarthub/` — actualizar esta línea y el remoto local (`git remote set-url origin ...`) cuando eso ocurra.
-- **Sitio publicado:** `https://al3xpinz0n.github.io/Company-Projects/` (hasta que se complete el rename de arriba).
+- **Repositorio:** `Al3xPinz0n/smarthub` en GitHub — **público** (necesario para GitHub Pages gratis). Renombrado desde `Company-Projects` (sep. 2026); el remoto local ya apunta a la nueva URL.
+- **Sitio publicado:** `https://al3xpinz0n.github.io/smarthub/`.
 - **Despliegue:** GitHub Pages desde `Settings > Pages`, origen `Deploy from a branch`, rama `main`, directorio `/(root)`.
-- **Repo local:** clonado en `C:\Users\ADP037\Documents\GitHub\Company-Projects` vía GitHub Desktop (ya autenticado con la cuenta de GitHub del usuario).
+- **Repo local:** carpeta `C:\Users\ADP037\Documents\GitHub\Company-Projects` (el nombre de la carpeta local quedó igual; solo cambió el repo remoto) — GitHub Desktop ya autenticado con la cuenta del usuario.
 - **Flujo de publicación:** cualquier cambio en `main` se refleja automáticamente en el sitio (1-2 minutos) al hacer push — el usuario usa GitHub Desktop (Commit → Push) para esto, sin línea de comandos.
-- **El hub arranca sin herramientas.** `TOOLS` en `index.html` está vacío a propósito — todo lo que traía la base de otra terminal se eliminó. Cada área operativa muestra su estado vacío ("No tools have been added...") hasta que se agregue la primera herramienta real.
+- **El hub arrancó vacío y se va llenando por herramienta real.** `TOOLS` en `index.html` ya no está vacío: **Strategy** tiene sus dos primeras herramientas (`Yard Strategy` y `Export & Empty Analysis`, ver más abajo). Las otras 5 áreas siguen mostrando su estado vacío ("No tools have been added...") hasta que se agregue su primera herramienta real.
 
 ## Diseño y marca
 
@@ -44,7 +44,14 @@ El hub usa 6 tarjetas de **área operativa** en la página de inicio (no pestañ
 | Rail     | Rail operations scheduling, railcar movements |
 | VAS      | Value-added services (stuffing, stripping, etc.) |
 
-Las 6 áreas están vacías por ahora — cada una debe mostrar su estado vacío hasta que se agregue su primera herramienta real.
+**Strategy** ya tiene sus dos primeras herramientas reales (construidas fuera de este repo y luego incorporadas):
+
+| Herramienta | Carpeta | Qué hace |
+|---|---|---|
+| **Yard Strategy** | `tools/strategy/yard-strategy/` | Mapa interactivo de bloques del patio para definir y ajustar la estrategia de yard — clasificar bloques, asignar servicios/líneas y revisar capacidad por clase. Guarda su estado en `localStorage` (nada sale del navegador). Tiene su propio candado interno adicional para la pestaña "Configuration" (contraseña embebida en el JS del archivo — es de ese archivo, no del gate de SMART Hub; no lo confundas con `AREA_HASHES`). |
+| **Export & Empty Analysis** | `tools/strategy/export-empty-analysis/` | El usuario sube dos Excel (lista de movimientos de carga + detalle de visitas de buque) y la herramienta calcula TEUs de exportación por POD/servicio, perfil de peso y TEUs vacíos por línea, usando SheetJS 100% en el navegador. |
+
+Las otras 5 áreas (Vessel, Yard, Gate, Rail, VAS) siguen vacías — cada una debe mostrar su estado vacío hasta que se agregue su primera herramienta real.
 
 ### Control de acceso por área
 
@@ -76,14 +83,16 @@ En `index.html`, `AREA_HASHES` guarda el **SHA-256** de cada contraseña (nunca 
 ## Estructura de directorios objetivo
 
 ```text
-Company-Projects/               <-- (por renombrar a "smarthub", ver Estado actual)
+smarthub/                            <-- repo GitHub (carpeta local sigue llamándose Company-Projects)
 ├── index.html                       <-- Hub principal (SMART Hub, ya existe)
 ├── README.md
 ├── CLAUDE.md                        <-- este archivo
 ├── assets/
 │   └── fonts/                       <-- Maersk Text (.ttf) usadas por index.html
 └── tools/
-    ├── strategy/<nombre>/index.html
+    ├── strategy/
+    │   ├── yard-strategy/index.html
+    │   └── export-empty-analysis/index.html
     ├── vessel/<nombre>/index.html
     ├── yard/<nombre>/index.html
     ├── gate/<nombre>/index.html
@@ -102,5 +111,4 @@ Cada herramienta nueva va en `tools/<área>/<nombre>/index.html`, autocontenida 
 
 ## Próximo paso acordado
 
-1. El usuario renombra el repositorio de GitHub a `smarthub` (Settings → General → Repository name) — Claude Code no tiene `gh` CLI ni un token disponible en esta máquina para hacerlo automáticamente.
-2. Construir la primera herramienta real dentro de un área (p. ej. `tools/strategy/kpi-calculator/index.html`) y apuntar su `href` en `TOOLS` desde `index.html`.
+Seguir construyendo herramientas reales por área (Vessel, Yard, Gate, Rail, VAS todavía no tienen ninguna) y agregar su entrada a `TOOLS` en `index.html` con el `area` correcto al terminarlas. Cuando una herramienta ya exista como archivo HTML fuera del repo (como pasó con las dos de Strategy), copiarla a `tools/<área>/<nombre>/index.html` tal cual si ya sigue la marca APM (Maersk Text, paleta oficial, inglés) — no reescribirla sin necesidad.

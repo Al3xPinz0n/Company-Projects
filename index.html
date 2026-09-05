@@ -164,6 +164,7 @@
   .panel-card.soon:hover::before { transform:scaleX(0); }
   .panel-card-icon { width:52px; height:52px; background:rgba(255,100,65,.1); border-radius:12px;
                      display:flex; align-items:center; justify-content:center; font-size:1.4rem; }
+  .panel-card-icon svg { width:28px; height:28px; display:block; }
   .panel-card-badge { position:absolute; top:1rem; right:1rem; font-size:.62rem; font-weight:700;
                       padding:3px 8px; border-radius:8px; background:#dcfce7; color:#16a34a;
                       letter-spacing:.04em; text-transform:uppercase; }
@@ -278,10 +279,19 @@ const OPERATIONAL_AREAS = [
   { key:'VAS',      icon:'ico-vas',      desc:'Value-added services — stuffing, stripping, and more.' },
 ];
 
-/* No tools have been built yet. As each tool is developed, add its entry
-   here with the correct `area` (matching an OPERATIONAL_AREAS key) and
-   `href` pointing at tools/<area>/<name>/index.html. */
-const TOOLS = [];
+/* As each tool is developed, add its entry here with the correct `area`
+   (matching an OPERATIONAL_AREAS key) and `href` pointing at
+   tools/<area>/<name>/index.html. */
+const TOOLS = [
+  { area:'Strategy', order:10, status:'live', icon:'ico-yard',
+    name:'Yard Strategy', tag:'Strategy · Yard Planning',
+    href:'tools/strategy/yard-strategy/index.html',
+    description:'Interactive yard block map to define and adjust the container yard strategy — classify blocks, assign services and lines, and review capacity by class.' },
+  { area:'Strategy', order:20, status:'live', icon:'ico-vessel',
+    name:'Export & Empty Analysis', tag:'Strategy · TEU Demand',
+    href:'tools/strategy/export-empty-analysis/index.html',
+    description:'Estimates export cargo and empty container TEU demand from the load list and vessel visit data — POD by service, weight profile, and empty TEUs by line.' },
+];
 
 /* SHA-256 of each area's password — the gate compares against these
    hashes, never against plaintext. Strategy uses its own password
@@ -322,7 +332,7 @@ function toolCard(app) {
      ${linked ? `href="${esc(app.href)}"` : ''}
      ${external ? 'target="_blank" rel="noopener"' : ''}>
     ${badge}
-    <div class="panel-card-icon">${esc(app.icon)}</div>
+    <div class="panel-card-icon"><svg><use href="#${esc(app.icon)}"/></svg></div>
     <div class="panel-card-title">${esc(app.name)}</div>
     <div class="panel-card-desc">${esc(app.description)}</div>
     <div class="panel-card-footer">
