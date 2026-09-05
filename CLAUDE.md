@@ -20,7 +20,7 @@ Este archivo se lee automáticamente al abrir este repositorio con Claude Code. 
 - **Despliegue:** GitHub Pages desde `Settings > Pages`, origen `Deploy from a branch`, rama `main`, directorio `/(root)`.
 - **Repo local:** carpeta `C:\Users\ADP037\Documents\GitHub\Company-Projects` (el nombre de la carpeta local quedó igual; solo cambió el repo remoto) — GitHub Desktop ya autenticado con la cuenta del usuario.
 - **Flujo de publicación:** cualquier cambio en `main` se refleja automáticamente en el sitio (1-2 minutos) al hacer push — el usuario usa GitHub Desktop (Commit → Push) para esto, sin línea de comandos.
-- **El hub arrancó vacío y se va llenando por herramienta real.** `TOOLS` en `index.html` ya no está vacío: **Strategy** tiene sus dos primeras herramientas (`Yard Strategy` y `Export & Empty Analysis`, ver más abajo). Las otras 5 áreas siguen mostrando su estado vacío ("No tools have been added...") hasta que se agregue su primera herramienta real.
+- **El hub arrancó vacío y se va llenando por herramienta real.** `TOOLS` en `index.html` ya no está vacío: **Strategy** tiene dos herramientas (`Yard Strategy` y `Export & Empty Analysis`) y **Vessel** tiene una (`Vessel Move Reconciliation`), ver más abajo. Yard, Gate, Rail y VAS siguen mostrando su estado vacío ("No tools have been added...") hasta que se agregue su primera herramienta real.
 
 ## Diseño y marca
 
@@ -51,7 +51,13 @@ El hub usa 6 tarjetas de **área operativa** en la página de inicio (no pestañ
 | **Yard Strategy** | `tools/strategy/yard-strategy/` | Mapa interactivo de bloques del patio para definir y ajustar la estrategia de yard — clasificar bloques, asignar servicios/líneas y revisar capacidad por clase. Guarda su estado en `localStorage` (nada sale del navegador). Tiene su propio candado interno adicional para la pestaña "Configuration" (contraseña embebida en el JS del archivo — es de ese archivo, no del gate de SMART Hub; no lo confundas con `AREA_HASHES`). |
 | **Export & Empty Analysis** | `tools/strategy/export-empty-analysis/` | El usuario sube dos Excel (lista de movimientos de carga + detalle de visitas de buque) y la herramienta calcula TEUs de exportación por POD/servicio, perfil de peso y TEUs vacíos por línea, usando SheetJS 100% en el navegador. |
 
-Las otras 5 áreas (Vessel, Yard, Gate, Rail, VAS) siguen vacías — cada una debe mostrar su estado vacío hasta que se agregue su primera herramienta real.
+**Vessel** tiene su primera herramienta:
+
+| Herramienta | Carpeta | Qué hace |
+|---|---|---|
+| **Vessel Move Reconciliation** | `tools/vessel/vessel-move-reconciliation/` | El usuario sube la lista de movimientos de contenedores de una escala de buque (xlsx/xls/csv) y la herramienta concilia discharge, load y restow por categoría de contenedor (Dry, Reefer, Tank, Flat Rack, Pallet Wide) y tamaño, desglosado por naviera. Usa SheetJS, 100% en el navegador. ⚠️ Esta herramienta usa la tipografía Google Fonts "Plus Jakarta Sans" y valores de color aproximados en vez de Maersk Text / la paleta exacta del skill `apm-terminals-brand` — se incorporó tal cual porque ya funcionaba y el usuario solo pidió agregarla; si en algún momento se quiere alinear 100% a la marca, es un ajuste pendiente. |
+
+Yard, Gate, Rail y VAS siguen vacías — cada una debe mostrar su estado vacío hasta que se agregue su primera herramienta real.
 
 ### Control de acceso por área
 
@@ -93,7 +99,8 @@ smarthub/                            <-- repo GitHub (carpeta local sigue llamá
     ├── strategy/
     │   ├── yard-strategy/index.html
     │   └── export-empty-analysis/index.html
-    ├── vessel/<nombre>/index.html
+    ├── vessel/
+    │   └── vessel-move-reconciliation/index.html
     ├── yard/<nombre>/index.html
     ├── gate/<nombre>/index.html
     ├── rail/<nombre>/index.html
@@ -111,4 +118,4 @@ Cada herramienta nueva va en `tools/<área>/<nombre>/index.html`, autocontenida 
 
 ## Próximo paso acordado
 
-Seguir construyendo herramientas reales por área (Vessel, Yard, Gate, Rail, VAS todavía no tienen ninguna) y agregar su entrada a `TOOLS` en `index.html` con el `area` correcto al terminarlas. Cuando una herramienta ya exista como archivo HTML fuera del repo (como pasó con las dos de Strategy), copiarla a `tools/<área>/<nombre>/index.html` tal cual si ya sigue la marca APM (Maersk Text, paleta oficial, inglés) — no reescribirla sin necesidad.
+Seguir construyendo herramientas reales por área (Yard, Gate, Rail, VAS todavía no tienen ninguna) y agregar su entrada a `TOOLS` en `index.html` con el `area` correcto al terminarlas. Cuando una herramienta ya exista como archivo HTML fuera del repo (como pasó con las tres ya incorporadas), copiarla a `tools/<área>/<nombre>/index.html` tal cual si ya sigue la marca APM (Maersk Text, paleta oficial, inglés) — no reescribirla sin necesidad. Si no sigue la marca al 100% (caso de `vessel-move-reconciliation`, ver arriba), incorporarla igual tal cual salvo que el usuario pida explícitamente alinearla.
